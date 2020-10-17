@@ -6,7 +6,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         git \
         unzip \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
+    # && pecl install xdebug \
+    # && docker-php-ext-enable xdebug \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove
