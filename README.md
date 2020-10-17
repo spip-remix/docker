@@ -1,2 +1,3 @@
 # spip-docker
-Containers for SPIP 3.4
+
+Containers for SPIP
