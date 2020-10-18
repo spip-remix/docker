@@ -11,11 +11,16 @@ Containers for SPIP
   - php-cli
   - [composer](https://getcomposer.org)
   - [Xdebug](https://xdebug.org/)
+  - [SPIP Checkout](https://git.spip.net/spip-contrib-outils/checkout)
 
 #### Notes
 
 - Xdebug versions are : 2.4.1 for PHP5.4, 2.5.5 for PHP5.5 & PHP5.6, 2.6.1 for PHP7.0, 2.9.8 for PHP7.1 and above.
 - No Xdebug for PHP8.0 as pecl is not installed and no xDebug stable version has been released yet.
+
+### Lamp
+
+TODO.
 
 ## Version Matrix
 
