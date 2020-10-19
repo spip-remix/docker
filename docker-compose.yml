@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  tools:
+    build:
+      context: ./docker/php
+      dockerfile: cli/7.2/Dockerfile
+    image: spip/tools:7.2-cli
+    networks:
+    - dev.spip.local
+    hostname: tools
+    container_name: tools
+    volumes:
+    - ./apps:/build
+
+  php-server:
+    image: spip/tools:7.2-cli
+    networks:
+    - dev.spip.local
+    ports:
+    - 8000:8000
+    hostname: php-server
+    container_name: php-server
+    volumes:
+    - ./apps/spip:/build
+    entrypoint: ["php", "-S", "php-server:8000", "-t", "."]
+
+networks:
+  dev.spip.local:
