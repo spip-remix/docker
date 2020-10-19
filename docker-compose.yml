@@ -17,7 +17,7 @@ services:
     networks:
     - dev.spip.local
     ports:
-    - 8000:8000
+    - "8000:8000"
     hostname: php-server
     container_name: php-server
     volumes:
