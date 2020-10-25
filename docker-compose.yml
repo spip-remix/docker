@@ -12,17 +12,31 @@ services:
     volumes:
     - ./apps:/build
 
-  php-server:
-    image: spip/tools:7.2-cli
+  sql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+    - dev.spip.local
+    hostname: sql
+    container_name: sql
+    environment:
+    - MYSQL_ROOT_PASSWORD=spip
+
+  dev.spip.local:
+    build:
+      context: ./docker/php
+      dockerfile: apache/7.2/Dockerfile
+    image: spip/mod_php:7.2
     networks:
     - dev.spip.local
     ports:
-    - "8000:8000"
-    hostname: php-server
-    container_name: php-server
+    - "8000:80"
+    hostname: dev.spip.local
+    container_name: dev.spip.local
     volumes:
-    - ./apps/spip:/build
-    entrypoint: ["php", "-S", "php-server:8000", "-t", "."]
+    - ./apps/spip:/var/www/html
+    depends_on:
+    - sql
 
 networks:
   dev.spip.local:

@@ -15,15 +15,70 @@ Containers for SPIP
   - [composer](https://getcomposer.org)
   - [Xdebug](https://xdebug.org/)
   - [SPIP Checkout](https://git.spip.net/spip-contrib-outils/checkout)
+  - [netpbm](http://netpbm.sourceforge.net/)
+  - [ImageMagick](https://imagemagick.org/)
 
-#### Notes
+#### Xdebug
 
 - Xdebug versions are : 2.4.1 for PHP5.4, 2.5.5 for PHP5.5 & PHP5.6, 2.6.1 for PHP7.0, 2.9.8 for PHP7.1 and above.
 - No Xdebug for PHP8.0 as pecl is not installed and no xDebug stable version has been released yet.
 
 TODO: xdebug configuration in spip.ini file
 
-### Lamp
+#### sqlite3 enabled
+
+`config/connect.php`:
+
+```php
+<?php
+if (!defined("_ECRIRE_INC_VERSION")) return;
+$GLOBALS['spip_connect_version'] = 0.8;
+spip_connect_db('localhost','','','','spip','sqlite3', 'spip','','');
+```
+
+#### SPIP-Cli
+
+TODO.
+
+### SQL
+
+Default SQL Server is MySQL 5.7
+
+Parameters:
+
+- host: `sql` default to 3306 port
+- user: `root`
+- password: `spip`
+
+`config/connect.php`:
+
+```php
+<?php
+if (!defined("_ECRIRE_INC_VERSION")) return;
+defined('_MYSQL_SET_SQL_MODE') || define('_MYSQL_SET_SQL_MODE',true);
+$GLOBALS['spip_connect_version'] = 0.8;
+spip_connect_db('sql','','root','spip','spip','mysql', 'spip','','utf8');
+```
+
+### Web Server
+
+#### mod_php
+
+- [spip/mod_php](https://hub.docker.com/r/spip/mod_php)
+- Content:
+  - php+apache2+mod_php (including gd and mysqli extensions)
+  - php.ini in default development mode + spip.ini custom directives
+    - date.timezone defaults to Europe/Paris
+    - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
+  - [Xdebug](https://xdebug.org/)
+  - [netpbm](http://netpbm.sourceforge.net/)
+  - [ImageMagick](https://imagemagick.org/)
+
+#### PHP-FPM with Apache httpd Server
+
+TODO.
+
+#### PHP-FPM with Nginx
 
 TODO.
 
@@ -37,13 +92,22 @@ TODO.
 | 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | 7.3-cli | latest  | 8.0.0RC2-cli |
 | 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-cli | latest  | 8.0.0RC2-cli |
 
-Defaults to 7.2-cli image and SPIP3.2.8 installation
+### spip/mod_php
+
+| SPIP Version     | PHP 5.4    | PHP 5.5    | PHP 5.6    | PHP 7.0    | PHP 7.1    | PHP 7.2    | PHP 7.3    | PHP 7.4 | PHP 8.0      |
+| ---------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ------- | --------------- |
+| 3.2 (3.2.8)      | 5.4-apache | 5.5-apache | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | N/A        | N/A     | N/A             |
+| 3.3 (3.3.x-dev)  | N/A        | N/A        | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | 7.3-apache | latest  | 8.0.0RC2-apache |
+| 3.4 (3.4.x-dev)  | N/A        | N/A        | N/A        | N/A        | N/A        | N/A        | 7.3-apache | latest  | 8.0.0RC2-apache |
+
+Defaults to 7.2-cli+7.2-apache images and SPIP3.2.8 installation
 
 To test with alternative PHP Versions :
 
 Create a `docker-compose.override.yml` file next to the `docker-compose.yml` file with the content below and change the PHP version as needed :
 
 ```yml
+#Run Stable SPIP under its minimum PHP version
 version: "3.8"
 services:
   tools:
@@ -52,8 +116,36 @@ services:
       dockerfile: cli/5.4/Dockerfile
     image: spip/tools:5.4-cli
 
-  php-server:
-    image: spip/tools:5.4-cli
+  de.spip.local:
+    build:
+      context: ./docker/php
+      dockerfile: apache/5.4/Dockerfile
+    image: spip/mod_php:5.4
     volumes:
     - ./apps/spip:/build
+```
+
+or
+
+```yml
+#Run Dev SPIP under stable PHP version
+version: "3.8"
+services:
+  tools:
+    build:
+      context: ./docker/php
+      dockerfile: cli/7.3/Dockerfile
+    image: spip/tools:7.3-cli
+
+  php-server:
+    image: spip/tools:7.3-cli
+    networks:
+    - dev.spip.local
+    ports:
+    - "5919:5919"
+    hostname: php-server
+    container_name: php-server
+    volumes:
+    - ./apps/spip-dev:/build
+    entrypoint: ["php", "-S", "php-server:5919", "-t", "."]
 ```
