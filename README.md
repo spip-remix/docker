@@ -2,6 +2,21 @@
 
 Containers for SPIP
 
+## Usage
+
+```bash
+git clone https://github.com/JamesRezo/spip-docker.git
+cd spip-docker
+make start
+```
+
+Open <http://localhost:8000/ecrire> in a web browser.
+
+- login: `admin`
+- password: `spip3.2.8`
+
+SPIP is installed in `./apps/spip`.
+
 ## Services
 
 ### Tools
