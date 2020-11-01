@@ -1,3 +1,4 @@
 /apps/
+/data/
 /build/
 /docker-compose.override.yml

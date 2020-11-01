@@ -1,0 +1,7 @@
+9	CRON task optimiser (every 172800 s)	optimiser	a:1:{i:0;i:1604205006;}	bcffbf8889d55ceca66e70f7e2904345	genie/	-1	2020-11-03 05:30:06	1
+16	CRON task maintenance (every 7200 s)	maintenance	a:1:{i:0;i:1604244040;}	52893e7efb0e99445f90edb9e501b104	genie/	0	2020-11-01 18:20:40	1
+12	CRON task mise_a_jour (every 259200 s)	mise_a_jour	a:1:{i:0;i:1604235158;}	03625c76e48af12916ffe82241d97d0c	genie/	0	2020-11-04 13:52:38	1
+13	CRON task optimiser_revisions (every 86400 s)	optimiser_revisions	a:1:{i:0;i:1604235159;}	273f0dd405b5fc639d5753a67af193b4	genie/	0	2020-11-02 13:52:39	1
+14	CRON task svp_actualiser_depots (every 21600 s)	svp_actualiser_depots	a:1:{i:0;i:1604235159;}	273f0dd405b5fc639d5753a67af193b4	genie/	0	2020-11-01 19:52:39	1
+15	CRON task invalideur (every 600 s)	invalideur	a:1:{i:0;i:1604244040;}	52893e7efb0e99445f90edb9e501b104	genie/	0	2020-11-01 16:30:40	1
+8	CRON task queue_watch (every 86400 s)	queue_watch	a:1:{i:0;i:1604235158;}	03625c76e48af12916ffe82241d97d0c	genie/	0	2020-11-02 13:52:38	1
