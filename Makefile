@@ -27,6 +27,7 @@ apps/$(SPIP_DIRECTORY)/config/.ok: build/.pulled
 .PHONY: clean reset start stop
 clean:
 	@rm -f apps/$(SPIP_DIRECTORY)/config/.ok
+	@rm -f build/.pulled
 
 reset: clean stop
 	@rm -Rf apps data

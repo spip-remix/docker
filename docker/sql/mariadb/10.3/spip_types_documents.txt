@@ -1,0 +1,170 @@
+jpg	JPEG		image/jpeg	image	oui	image	2020-11-01 12:52:04
+png	PNG		image/png	image	oui	image	2020-11-01 12:52:04
+gif	GIF		image/gif	image	oui	image	2020-11-01 12:52:04
+bmp	BMP		image/x-ms-bmp	image	oui	image	2020-11-01 12:52:04
+tif	TIFF		image/tiff	embed	oui	image	2020-11-01 12:52:04
+aac	Advanced Audio Coding		audio/mp4a-latm	embed	oui	audio	2020-11-01 12:52:04
+ac3	AC-3 Compressed Audio		audio/x-aac	embed	oui	audio	2020-11-01 12:52:04
+aifc	Compressed AIFF Audio		audio/x-aifc	embed	oui	audio	2020-11-01 12:52:04
+aiff	AIFF		audio/x-aiff	embed	oui	audio	2020-11-01 12:52:04
+amr	Adaptive Multi-Rate Audio		audio/amr	embed	oui	audio	2020-11-01 12:52:04
+ape	Monkey's Audio File		audio/x-monkeys-audio	embed	oui	audio	2020-11-01 12:52:04
+asf	Windows Media		video/x-ms-asf	embed	oui	video	2020-11-01 12:52:04
+avi	AVI		video/x-msvideo	embed	oui	video	2020-11-01 12:52:04
+anx	Annodex		application/annodex	embed	oui	file	2020-11-01 12:52:04
+axa	Annodex Audio		audio/annodex	embed	oui	audio	2020-11-01 12:52:04
+axv	Annodex Video		video/annodex	embed	oui	video	2020-11-01 12:52:04
+dv	Digital Video		video/x-dv	embed	oui	video	2020-11-01 12:52:04
+f4a	Audio for Adobe Flash Player		audio/mp4	embed	oui	audio	2020-11-01 12:52:04
+f4b	Audio Book for Adobe Flash Player		audio/mp4	embed	oui	audio	2020-11-01 12:52:04
+f4p	Protected Video for Adobe Flash Player		video/mp4	embed	oui	video	2020-11-01 12:52:04
+f4v	Video for Adobe Flash Player		video/mp4	embed	oui	video	2020-11-01 12:52:04
+flac	Free Lossless Audio Codec		audio/x-flac	embed	oui	audio	2020-11-01 12:52:04
+flv	Flash Video		video/x-flv	embed	oui	video	2020-11-01 12:52:04
+m2p	MPEG-PS		video/MP2P	embed	oui	video	2020-11-01 12:52:04
+m2ts	BDAV MPEG-2 Transport Stream		video/MP2T	embed	oui	video	2020-11-01 12:52:04
+m4a	MPEG4 Audio		audio/mp4a-latm	embed	oui	audio	2020-11-01 12:52:04
+m4b	MPEG4 Audio		audio/mp4a-latm	embed	oui	audio	2020-11-01 12:52:04
+m4p	MPEG4 Audio		audio/mp4a-latm	embed	oui	audio	2020-11-01 12:52:04
+m4r	iPhone Ringtone		audio/aac	embed	oui	audio	2020-11-01 12:52:04
+m4u	MPEG4 Playlist		video/vnd.mpegurl	non	oui	video	2020-11-01 12:52:04
+m4v	MPEG4 Video		video/x-m4v	embed	oui	video	2020-11-01 12:52:04
+mid	Midi		audio/midi	embed	oui	audio	2020-11-01 12:52:04
+mka	Matroska Audio		audio/mka	embed	oui	audio	2020-11-01 12:52:04
+mkv	Matroska Video		video/mkv	embed	oui	video	2020-11-01 12:52:04
+mng	MNG		video/x-mng	embed	oui	video	2020-11-01 12:52:04
+mov	QuickTime		video/quicktime	embed	oui	video	2020-11-01 12:52:04
+mp3	MP3		audio/mpeg	embed	oui	audio	2020-11-01 12:52:04
+mp4	MPEG4		application/mp4	embed	oui	video	2020-11-01 12:52:04
+mpc	Musepack		audio/x-musepack	embed	oui	audio	2020-11-01 12:52:04
+mpg	MPEG		video/mpeg	embed	oui	video	2020-11-01 12:52:04
+mts	AVCHD MPEG-2 transport stream		video/MP2T	embed	oui	video	2020-11-01 12:52:04
+oga	Ogg Audio		audio/ogg	embed	oui	audio	2020-11-01 12:52:04
+ogg	Ogg Vorbis		audio/ogg	embed	oui	audio	2020-11-01 12:52:04
+ogv	Ogg Video		video/ogg	embed	oui	video	2020-11-01 12:52:04
+ogx	Ogg Multiplex		application/ogg	embed	oui	video	2020-11-01 12:52:04
+qt	QuickTime		video/quicktime	embed	oui	video	2020-11-01 12:52:04
+ra	RealAudio		audio/x-pn-realaudio	embed	oui	audio	2020-11-01 12:52:04
+ram	RealAudio		audio/x-pn-realaudio	embed	oui	audio	2020-11-01 12:52:04
+rm	RealAudio		audio/x-pn-realaudio	embed	oui	audio	2020-11-01 12:52:04
+spx	Ogg Speex		audio/ogg	embed	oui	audio	2020-11-01 12:52:04
+svg	Scalable Vector Graphics		image/svg+xml	embed	oui	image	2020-11-01 12:52:04
+svgz	Compressed Scalable Vector Graphic		image/svg+xml	embed	oui	image	2020-11-01 12:52:04
+swf	Flash		application/x-shockwave-flash	embed	oui	video	2020-11-01 12:52:04
+ts	MPEG transport stream		video/MP2T	embed	oui	video	2020-11-01 12:52:04
+wav	WAV		audio/x-wav	embed	oui	audio	2020-11-01 12:52:04
+webm	WebM		video/webm	embed	oui	video	2020-11-01 12:52:04
+wma	Windows Media Audio		audio/x-ms-wma	embed	oui	audio	2020-11-01 12:52:04
+wmv	Windows Media Video		video/x-ms-wmv	embed	oui	video	2020-11-01 12:52:04
+y4m	YUV4MPEG2		video/x-raw-yuv	embed	oui	video	2020-11-01 12:52:04
+3gp	3rd Generation Partnership Project		video/3gpp	embed	oui	video	2020-11-01 12:52:04
+3ga	3GP Audio File		audio/3ga	embed	oui	audio	2020-11-01 12:52:04
+7z	7 Zip		application/x-7z-compressed	non	oui	file	2020-11-01 12:52:04
+ai	Adobe Illustrator		application/illustrator	non	oui	image	2020-11-01 12:52:04
+abw	Abiword		application/abiword	non	oui	file	2020-11-01 12:52:04
+asx	Advanced Stream Redirector		video/x-ms-asf	non	oui	video	2020-11-01 12:52:04
+bib	BibTeX		application/x-bibtex	non	oui	file	2020-11-01 12:52:04
+bin	Binary Data		application/octet-stream	non	oui	file	2020-11-01 12:52:04
+blend	Blender		application/x-blender	non	oui	file	2020-11-01 12:52:04
+bz2	BZip		application/x-bzip2	non	oui	file	2020-11-01 12:52:04
+c	C source		text/x-csrc	non	oui	file	2020-11-01 12:52:04
+csl	Citation Style Language		application/xml	non	oui	file	2020-11-01 12:52:04
+css	Cascading Style Sheet		text/css	non	oui	file	2020-11-01 12:52:04
+csv	Comma Separated Values		text/csv	non	oui	file	2020-11-01 12:52:04
+deb	Debian		application/x-debian-package	non	oui	file	2020-11-01 12:52:04
+doc	Word		application/msword	non	oui	file	2020-11-01 12:52:04
+dot	Word Template		application/msword	non	oui	file	2020-11-01 12:52:04
+djvu	DjVu		image/vnd.djvu	non	oui	image	2020-11-01 12:52:04
+dvi	LaTeX DVI		application/x-dvi	non	oui	file	2020-11-01 12:52:04
+emf	Enhanced Metafile		image/x-emf	non	oui	image	2020-11-01 12:52:04
+enl	EndNote Library		application/octet-stream	non	oui	file	2020-11-01 12:52:04
+ens	EndNote Style		application/octet-stream	non	oui	file	2020-11-01 12:52:04
+eps	PostScript		application/postscript	non	oui	file	2020-11-01 12:52:04
+epub	EPUB		application/epub+zip	non	oui	file	2020-11-01 12:52:04
+gpx	GPS eXchange Format		application/gpx+xml	non	oui	file	2020-11-01 12:52:04
+gz	GZ		application/x-gzip	non	oui	file	2020-11-01 12:52:04
+h	C header		text/x-chdr	non	oui	file	2020-11-01 12:52:04
+html	HTML		text/html	non	oui	file	2020-11-01 12:52:04
+ics	iCalendar		text/calendar	non	oui	file	2020-11-01 12:52:04
+jar	Java Archive		application/java-archive	non	oui	file	2020-11-01 12:52:04
+json	JSON		application/json	non	oui	file	2020-11-01 12:52:04
+kml	Keyhole Markup Language		application/vnd.google-earth.kml+xml	non	oui	file	2020-11-01 12:52:04
+kmz	Google Earth Placemark File		application/vnd.google-earth.kmz	non	oui	file	2020-11-01 12:52:04
+lyx	Lyx file		application/x-lyx	non	oui	file	2020-11-01 12:52:04
+m3u	M3U Playlist		text/plain	non	oui	file	2020-11-01 12:52:04
+m3u8	M3U8 Playlist		text/plain	non	oui	file	2020-11-01 12:52:04
+mathml	MathML		application/mathml+xml	non	oui	file	2020-11-01 12:52:04
+mbtiles	MBTiles		application/x-sqlite3	non	oui	file	2020-11-01 12:52:04
+md	Markdown Document		text/x-markdown	non	oui	file	2020-11-01 12:52:04
+pas	Pascal		text/x-pascal	non	oui	file	2020-11-01 12:52:04
+pdf	PDF		application/pdf	non	oui	file	2020-11-01 12:52:04
+pgn	Portable Game Notation		application/x-chess-pgn	non	oui	file	2020-11-01 12:52:04
+pls	Playlist		text/plain	non	oui	file	2020-11-01 12:52:04
+ppt	PowerPoint		application/vnd.ms-powerpoint	non	oui	file	2020-11-01 12:52:04
+pot	PowerPoint Template		application/vnd.ms-powerpoint	non	oui	file	2020-11-01 12:52:04
+ps	PostScript		application/postscript	non	oui	file	2020-11-01 12:52:04
+psd	Photoshop		image/x-photoshop	non	oui	image	2020-11-01 12:52:04
+rar	WinRAR		application/x-rar-compressed	non	oui	file	2020-11-01 12:52:04
+rdf	Resource Description Framework		application/rdf+xml	non	oui	file	2020-11-01 12:52:04
+ris	RIS		application/x-research-info-systems	non	oui	file	2020-11-01 12:52:04
+rpm	RedHat/Mandrake/SuSE		application/x-redhat-package-manager	non	oui	file	2020-11-01 12:52:04
+rtf	RTF		application/rtf	non	oui	file	2020-11-01 12:52:04
+sdc	StarOffice Spreadsheet		application/vnd.stardivision.calc	non	oui	file	2020-11-01 12:52:04
+sdd	StarOffice Presentation		application/vnd.stardivision.impress	non	oui	file	2020-11-01 12:52:04
+sdw	StarOffice Writer document		application/vnd.stardivision.writer	non	oui	file	2020-11-01 12:52:04
+sit	Stuffit		application/x-stuffit	non	oui	file	2020-11-01 12:52:04
+sla	Scribus		application/x-scribus	non	oui	file	2020-11-01 12:52:04
+srt	SubRip Subtitle		text/plain	non	oui	file	2020-11-01 12:52:04
+ssa	SubStation Alpha Subtitle		text/plain	non	oui	file	2020-11-01 12:52:04
+sxc	OpenOffice.org Calc		application/vnd.sun.xml.calc	non	oui	file	2020-11-01 12:52:04
+sxi	OpenOffice.org Impress		application/vnd.sun.xml.impress	non	oui	file	2020-11-01 12:52:04
+sxw	OpenOffice.org		application/vnd.sun.xml.writer	non	oui	file	2020-11-01 12:52:04
+tar	Tar		application/x-tar	non	oui	file	2020-11-01 12:52:04
+tex	LaTeX		text/x-tex	non	oui	file	2020-11-01 12:52:04
+tgz	TGZ		application/x-gtar	non	oui	file	2020-11-01 12:52:04
+torrent	BitTorrent		application/x-bittorrent	non	oui	file	2020-11-01 12:52:04
+ttf	TTF Font		application/x-font-ttf	non	oui	file	2020-11-01 12:52:04
+txt	Texte		text/plain	non	oui	file	2020-11-01 12:52:04
+usf	Universal Subtitle Format		application/xml	non	oui	file	2020-11-01 12:52:04
+vcf	vCard		text/vcard	non	oui	file	2020-11-01 12:52:04
+xcf	GIMP multi-layer		application/x-xcf	non	oui	file	2020-11-01 12:52:04
+xls	Excel		application/vnd.ms-excel	non	oui	file	2020-11-01 12:52:04
+xlt	Excel Template		application/vnd.ms-excel	non	oui	file	2020-11-01 12:52:04
+wmf	Windows Metafile		image/x-emf	non	oui	image	2020-11-01 12:52:04
+wpl	Windows Media Player Playlist		application/vnd.ms-wpl	non	oui	file	2020-11-01 12:52:04
+xspf	XSPF		application/xspf+xml	non	oui	file	2020-11-01 12:52:04
+xml	XML		application/xml	non	oui	file	2020-11-01 12:52:04
+yaml	YAML		text/yaml	non	oui	file	2020-11-01 12:52:04
+zip	Zip		application/zip	non	oui	file	2020-11-01 12:52:04
+odt	OpenDocument Text		application/vnd.oasis.opendocument.text	non	oui	file	2020-11-01 12:52:04
+ods	OpenDocument Spreadsheet		application/vnd.oasis.opendocument.spreadsheet	non	oui	file	2020-11-01 12:52:04
+odp	OpenDocument Presentation		application/vnd.oasis.opendocument.presentation	non	oui	file	2020-11-01 12:52:04
+odg	OpenDocument Graphics		application/vnd.oasis.opendocument.graphics	non	oui	file	2020-11-01 12:52:04
+odc	OpenDocument Chart		application/vnd.oasis.opendocument.chart	non	oui	file	2020-11-01 12:52:04
+odf	OpenDocument Formula		application/vnd.oasis.opendocument.formula	non	oui	file	2020-11-01 12:52:04
+odb	OpenDocument Database		application/vnd.oasis.opendocument.database	non	oui	file	2020-11-01 12:52:04
+odi	OpenDocument Image		application/vnd.oasis.opendocument.image	non	oui	file	2020-11-01 12:52:04
+odm	OpenDocument Text-master		application/vnd.oasis.opendocument.text-master	non	oui	file	2020-11-01 12:52:04
+ott	OpenDocument Text-template		application/vnd.oasis.opendocument.text-template	non	oui	file	2020-11-01 12:52:04
+ots	OpenDocument Spreadsheet-template		application/vnd.oasis.opendocument.spreadsheet-template	non	oui	file	2020-11-01 12:52:04
+otp	OpenDocument Presentation-template		application/vnd.oasis.opendocument.presentation-template	non	oui	file	2020-11-01 12:52:04
+otg	OpenDocument Graphics-template		application/vnd.oasis.opendocument.graphics-template	non	oui	file	2020-11-01 12:52:04
+cls	LaTeX Class		text/x-tex	non	oui	file	2020-11-01 12:52:04
+sty	LaTeX Style Sheet		text/x-tex	non	oui	file	2020-11-01 12:52:04
+docm	Word		application/vnd.ms-word.document.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+docx	Word		application/vnd.openxmlformats-officedocument.wordprocessingml.document	non	oui	file	2020-11-01 12:52:04
+dotm	Word template		application/vnd.ms-word.template.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+dotx	Word template		application/vnd.openxmlformats-officedocument.wordprocessingml.template	non	oui	file	2020-11-01 12:52:04
+potm	Powerpoint template		application/vnd.ms-powerpoint.template.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+potx	Powerpoint template		application/vnd.openxmlformats-officedocument.presentationml.template	non	oui	file	2020-11-01 12:52:04
+ppam	Powerpoint addin		application/vnd.ms-powerpoint.addin.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+ppsm	Powerpoint slideshow		application/vnd.ms-powerpoint.slideshow.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+ppsx	Powerpoint slideshow		application/vnd.openxmlformats-officedocument.presentationml.slideshow	non	oui	file	2020-11-01 12:52:04
+pptm	Powerpoint		application/vnd.ms-powerpoint.presentation.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+pptx	Powerpoint		application/vnd.openxmlformats-officedocument.presentationml.presentation	non	oui	file	2020-11-01 12:52:04
+xlam	Excel		application/vnd.ms-excel.addin.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+xlsb	Excel binary		application/vnd.ms-excel.sheet.binary.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+xlsm	Excel		application/vnd.ms-excel.sheet.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+xlsx	Excel		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet	non	oui	file	2020-11-01 12:52:04
+xltm	Excel template		application/vnd.ms-excel.template.macroEnabled.12	non	oui	file	2020-11-01 12:52:04
+xltx	Excel template		application/vnd.openxmlformats-officedocument.spreadsheetml.template	non	oui	file	2020-11-01 12:52:04

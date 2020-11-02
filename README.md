@@ -57,7 +57,7 @@ TODO.
 
 ### SQL
 
-Default SQL Server is MySQL 5.7
+Default SQL Server is MariaDB 10.3 (default sql server in Debian Buster)
 
 Parameters:
 
@@ -65,14 +65,16 @@ Parameters:
 - user: `root`
 - password: `spip`
 
-`config/connect.php`:
+Alternatively, for MySQL 5.7,
+create a `docker-compose.override.yml` file next to the `docker-compose.yml` file with the content below
 
-```php
-<?php
-if (!defined("_ECRIRE_INC_VERSION")) return;
-defined('_MYSQL_SET_SQL_MODE') || define('_MYSQL_SET_SQL_MODE',true);
-$GLOBALS['spip_connect_version'] = 0.8;
-spip_connect_db('sql','','root','spip','spip','mysql', 'spip','','utf8');
+```yml
+  sql:
+    image: mysq:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+    - ./data/spip:/var/lib/mysql
+    - ./docker/sql/mysql/5.7:/docker-entrypoint-initdb.d
 ```
 
 ### Web Server
@@ -115,14 +117,37 @@ TODO.
 | 3.3 (3.3.x-dev)  | N/A        | N/A        | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | 7.3-apache | latest  | 8.0.0RC2-apache |
 | 3.4 (3.4.x-dev)  | N/A        | N/A        | N/A        | N/A        | N/A        | N/A        | 7.3-apache | latest  | 8.0.0RC2-apache |
 
-Defaults to 7.2-cli+7.2-apache images and SPIP3.2.8 installation
+### spip/fpm
+
+| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0      |
+| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ |
+| 3.2 (3.2.8)      | 5.4-fpm | 5.5-fpm | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | N/A     | N/A     | N/A          |
+| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | 7.3-fpm | latest  | 8.0.0RC2-fpm |
+| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-fpm | latest  | 8.0.0RC2-fpm |
+
+Defaults to 7.2-cli+7.2-fpm images and SPIP3.2.8 installation
 
 To test with alternative PHP Versions :
 
 Create a `docker-compose.override.yml` file next to the `docker-compose.yml` file with the content below and change the PHP version as needed :
 
 ```yml
-#Run Stable SPIP under its minimum PHP version
+#Run Stable SPIP under PHP 8.0 version
+version: "3.8"
+services:
+  tools:
+    image: spip/tools:8.0.0RC2-cli
+
+  dev.spip.local:
+    image: spip/mod_php:8.0.0RC2
+    volumes:
+    - ./apps/spip:/var/www/html
+```
+
+or
+
+```yml
+#Run Stable SPIP under its minimum PHP version and apache2+mod_php
 version: "3.8"
 services:
   tools:
@@ -131,13 +156,13 @@ services:
       dockerfile: cli/5.4/Dockerfile
     image: spip/tools:5.4-cli
 
-  de.spip.local:
+  dev.spip.local:
     build:
       context: ./docker/php
       dockerfile: apache/5.4/Dockerfile
     image: spip/mod_php:5.4
     volumes:
-    - ./apps/spip:/build
+    - ./apps/spip:/var/www/html
 ```
 
 or

@@ -13,15 +13,14 @@ services:
     - ./apps:/build
 
   sql:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
+    image: mariadb:10.3
     networks:
     - dev.spip.local
     hostname: sql
     container_name: sql
     volumes:
     - ./data/spip:/var/lib/mysql
-    - ./docker/sql/mysql/5.7:/docker-entrypoint-initdb.d
+    - ./docker/sql/mariadb/10.3:/docker-entrypoint-initdb.d
     environment:
     - MYSQL_ROOT_PASSWORD=spip
     - MYSQL_DATABASE=spip
@@ -42,7 +41,8 @@ services:
     environment:
     - MYSQL_HOST=sql
     - MYSQL_DATABASE=spip
-    - MYSQL_ROOT_PASSWORD=spip
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=spip
     depends_on:
     - sql
 
