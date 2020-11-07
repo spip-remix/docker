@@ -23,7 +23,7 @@ SPIP is installed in `./apps/spip`.
 
 - [spip/tools](https://hub.docker.com/r/spip/tools)
 - Content:
-  - php-cli (including gd and mysqli extensions)
+  - php-cli (including opcache, gd and mysqli extensions)
   - php.ini in default development mode + spip.ini custom directives
     - date.timezone defaults to Europe/Paris
     - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
@@ -52,10 +52,6 @@ spip_connect_db('localhost','','','','spip','sqlite3', 'spip','','');
 ```
 
 #### SPIP-Cli
-
-TODO.
-
-#### OPcache
 
 TODO.
 

@@ -11,6 +11,7 @@ RUN apt-get update \
         imagemagick \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-freetype-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install -j$(nproc) gd \
