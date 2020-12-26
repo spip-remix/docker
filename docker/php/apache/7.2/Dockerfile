@@ -9,6 +9,7 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
+    && a2enmod rewrite \
     && pecl install xdebug-3.0.1 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
