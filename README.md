@@ -35,10 +35,7 @@ SPIP is installed in `./apps/spip`.
 
 #### Xdebug
 
-- Xdebug versions are : 2.4.1 for PHP5.4, 2.5.5 for PHP5.5 & PHP5.6, 2.6.1 for PHP7.0, 2.9.8 for PHP7.1 and above.
-- No Xdebug for PHP8.0 as pecl is not installed and no xDebug stable version has been released yet.
-
-TODO: xdebug configuration in spip.ini file
+- Xdebug versions are : 2.4.1 for PHP5.4, 2.5.5 for PHP5.5 & PHP5.6, 2.7.2 for PHP7.0, 2.9.8 for PHP7.1, 3.0.1 for PHP7.2  and above.
 
 #### sqlite3 enabled
 
@@ -107,27 +104,27 @@ TODO.
 
 ### spip/tools
 
-| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0      |
-| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ |
-| 3.2 (3.2.8)      | 5.4-cli | 5.5-cli | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | N/A     | N/A     | N/A          |
-| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | 7.3-cli | latest  | 8.0.0RC3-cli |
-| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-cli | latest  | 8.0.0RC3-cli |
+| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0 |
+| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| 3.2 (3.2.8)      | 5.4-cli | 5.5-cli | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | N/A     | N/A     | N/A     |
+| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | 7.3-cli | latest  | 8.0-cli |
+| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-cli | latest  | 8.0-cli |
 
 ### spip/mod_php
 
-| SPIP Version     | PHP 5.4    | PHP 5.5    | PHP 5.6    | PHP 7.0    | PHP 7.1    | PHP 7.2    | PHP 7.3    | PHP 7.4 | PHP 8.0      |
-| ---------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ------- | --------------- |
-| 3.2 (3.2.8)      | 5.4-apache | 5.5-apache | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | N/A        | N/A     | N/A             |
-| 3.3 (3.3.x-dev)  | N/A        | N/A        | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | 7.3-apache | latest  | 8.0.0RC3-apache |
-| 3.4 (3.4.x-dev)  | N/A        | N/A        | N/A        | N/A        | N/A        | N/A        | 7.3-apache | latest  | 8.0.0RC3-apache |
+| SPIP Version     | PHP 5.4    | PHP 5.5    | PHP 5.6    | PHP 7.0    | PHP 7.1    | PHP 7.2    | PHP 7.3    | PHP 7.4 | PHP 8.0    |
+| ---------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ------- | ---------- |
+| 3.2 (3.2.8)      | 5.4-apache | 5.5-apache | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | N/A        | N/A     | N/A        |
+| 3.3 (3.3.x-dev)  | N/A        | N/A        | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | 7.3-apache | latest  | 8.0-apache |
+| 3.4 (3.4.x-dev)  | N/A        | N/A        | N/A        | N/A        | N/A        | N/A        | 7.3-apache | latest  | 8.0-apache |
 
 ### spip/fpm
 
-| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0      |
-| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ |
-| 3.2 (3.2.8)      | 5.4-fpm | 5.5-fpm | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | N/A     | N/A     | N/A          |
-| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | 7.3-fpm | latest  | 8.0.0RC3-fpm |
-| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-fpm | latest  | 8.0.0RC3-fpm |
+| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0 |
+| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| 3.2 (3.2.8)      | 5.4-fpm | 5.5-fpm | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | N/A     | N/A     | N/A     |
+| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | 7.3-fpm | latest  | 8.0-fpm |
+| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-fpm | latest  | 8.0-fpm |
 
 Defaults to 7.2-cli+7.2-fpm images and SPIP3.2.8 installation
 
@@ -140,10 +137,10 @@ Create a `docker-compose.override.yml` file next to the `docker-compose.yml` fil
 version: "3.8"
 services:
   tools:
-    image: spip/tools:8.0.0RC3-cli
+    image: spip/tools:8.0-cli
 
   dev.spip.local:
-    image: spip/mod_php:8.0.0RC3
+    image: spip/mod_php:8.0
     volumes:
     - ./apps/spip:/var/www/html
 ```
