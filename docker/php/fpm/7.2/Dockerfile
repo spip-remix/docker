@@ -10,7 +10,7 @@ RUN apt-get update \
         netpbm \
         imagemagick \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable xdebug-3.0.1 \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-freetype-dir=/usr --with-jpeg-dir=/usr \
@@ -20,5 +20,5 @@ RUN apt-get update \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
-ADD spip.ini /usr/local/etc/php/conf.d/spip.ini
+ADD spip-xdbg3.ini /usr/local/etc/php/conf.d/spip.ini
 ADD spip.conf /usr/local/etc/php-fpm.d/spip.conf

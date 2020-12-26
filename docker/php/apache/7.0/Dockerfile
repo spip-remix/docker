@@ -10,7 +10,7 @@ RUN apt-get update \
         netpbm \
         imagemagick \
     && pecl channel-update pecl.php.net \
-    && pecl install xdebug-2.6.1 \
+    && pecl install xdebug-2.7.2 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \

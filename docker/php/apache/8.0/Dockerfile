@@ -1,4 +1,4 @@
-FROM php:8.0.0RC3-apache
+FROM php:8.0-apache
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -9,8 +9,8 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
-    # && pecl install xdebug \
-    # && docker-php-ext-enable xdebug \
+    && pecl install xdebug-3.0.1 \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -18,4 +18,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove
 
-ADD spip.ini /usr/local/etc/php/conf.d/spip.ini
+ADD spip-xdbg3.ini /usr/local/etc/php/conf.d/spip.ini
