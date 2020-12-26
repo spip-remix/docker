@@ -9,8 +9,8 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug-3.0.1 \
+    && pecl install xdebug-3.0.1 \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
