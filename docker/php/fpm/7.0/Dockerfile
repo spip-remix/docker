@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.3.28-fpm
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
