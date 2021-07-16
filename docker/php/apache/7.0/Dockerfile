@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.4.15-apache
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
