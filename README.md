@@ -13,7 +13,7 @@ make start
 Open <http://localhost:8000/ecrire> in a web browser.
 
 - login: `admin`
-- password: `spip3.2.8`
+- password: `spip3.2.11`
 
 SPIP is installed in `./apps/spip`.
 
@@ -23,7 +23,7 @@ SPIP is installed in `./apps/spip`.
 
 - [spip/tools](https://hub.docker.com/r/spip/tools)
 - Content:
-  - php-cli (including opcache, gd and mysqli extensions)
+  - php-cli (including opcache, gd, zip, and mysqli extensions)
   - php.ini in default development mode + spip.ini custom directives
     - date.timezone defaults to Europe/Paris
     - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
@@ -35,7 +35,7 @@ SPIP is installed in `./apps/spip`.
 
 #### Xdebug
 
-- Xdebug versions are : 2.4.1 for PHP5.4, 2.5.5 for PHP5.5 & PHP5.6, 2.7.2 for PHP7.0, 2.9.8 for PHP7.1, 3.0.4 for PHP7.2  and above.
+- Xdebug versions are : 3.0.4 for PHP7.3 and above.
 
 #### sqlite3 enabled
 
@@ -104,29 +104,27 @@ TODO.
 
 ### spip/tools
 
-| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0 |
-| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 3.2 (3.2.8)      | 5.4-cli | 5.5-cli | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | N/A     | N/A     | N/A     |
-| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-cli | 7.0-cli | 7.1-cli | 7.2-cli | 7.3-cli | latest  | 8.0-cli |
-| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-cli | latest  | 8.0-cli |
+| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1       |
+| ---------------- | ------- | ------- | ------- | ------------- |
+| 3.2 (3.2.11)     | 7.3-cli | 7.4-cli | N/A     | N/A           |
+| 4.0 (4.0.0)      | 7.3-cli | 7.4-cli | 8.0-cli | 8.1-beta3-cli |
+| 4.1 (4.1.x-dev)  | N/A     | 7.4-cli | 8.0-cli | 8.1-beta3-cli |
 
 ### spip/mod_php
 
-| SPIP Version     | PHP 5.4    | PHP 5.5    | PHP 5.6    | PHP 7.0    | PHP 7.1    | PHP 7.2    | PHP 7.3    | PHP 7.4 | PHP 8.0    |
-| ---------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ------- | ---------- |
-| 3.2 (3.2.8)      | 5.4-apache | 5.5-apache | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | N/A        | N/A     | N/A        |
-| 3.3 (3.3.x-dev)  | N/A        | N/A        | 5.6-apache | 7.0-apache | 7.1-apache | 7.2-apache | 7.3-apache | latest  | 8.0-apache |
-| 3.4 (3.4.x-dev)  | N/A        | N/A        | N/A        | N/A        | N/A        | N/A        | 7.3-apache | latest  | 8.0-apache |
+| SPIP Version     | PHP 7.3    | PHP 7.4 | PHP 8.0    |
+| ---------------- | ---------- | ------- | ---------- |
+| 3.2 (3.2.11)     | N/A        | N/A     | N/A        |
+| 3.4 (3.4.x-dev)  | 7.3-apache | latest  | latest     |
 
 ### spip/fpm
 
-| SPIP Version     | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 | PHP 8.0 |
-| ---------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| 3.2 (3.2.8)      | 5.4-fpm | 5.5-fpm | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | N/A     | N/A     | N/A     |
-| 3.3 (3.3.x-dev)  | N/A     | N/A     | 5.6-fpm | 7.0-fpm | 7.1-fpm | 7.2-fpm | 7.3-fpm | latest  | 8.0-fpm |
-| 3.4 (3.4.x-dev)  | N/A     | N/A     | N/A     | N/A     | N/A     | N/A     | 7.3-fpm | latest  | 8.0-fpm |
+| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 |
+| ---------------- | ------- | ------- | ------- |
+| 3.2 (3.2.11)     | N/A     | N/A     | N/A     |
+| 3.4 (3.4.x-dev)  | 7.3-fpm | latest  | 8.0-fpm |
 
-Defaults to 7.2-cli+7.2-fpm images and SPIP3.2.8 installation
+Defaults to 7.2-cli+7.2-fpm images and SPIP3.2.11 installation
 
 To test with alternative PHP Versions :
 

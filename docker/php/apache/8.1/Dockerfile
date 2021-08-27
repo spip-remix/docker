@@ -1,9 +1,10 @@
-FROM php:8.1.0alpha1-apache
+FROM php:8.1.0beta3-apache
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         git \
         unzip \
+        libzip-dev \
         libpng-dev \
         libjpeg62-turbo-dev \
         libfreetype6-dev \
@@ -12,6 +13,7 @@ RUN apt-get update \
     && a2enmod rewrite \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && rm -rf /var/lib/apt/lists/* \

@@ -1,16 +1,19 @@
-FROM php:8.1.0alpha1-cli
+FROM php:8.1.0beta3-cli
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        git \
-        unzip \
-        libpng-dev \
-        libjpeg62-turbo-dev \
-        libfreetype6-dev \
-        netpbm \
-        imagemagick \
+    git \
+    unzip \
+    libzip-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    netpbm \
+    imagemagick \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && rm -rf /var/lib/apt/lists/* \
@@ -20,7 +23,7 @@ RUN apt-get update \
 
 ADD spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
 
-COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout
 
 WORKDIR /build
