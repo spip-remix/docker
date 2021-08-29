@@ -5,7 +5,6 @@ RUN apt-get update \
     git \
     unzip \
     libzip-dev \
-    libzip-dev \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -21,7 +20,7 @@ RUN apt-get update \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
-ADD spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
+COPY spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout

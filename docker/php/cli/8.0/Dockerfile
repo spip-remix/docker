@@ -2,14 +2,14 @@ FROM php:8.0-cli
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-    git \
-    unzip \
-    libzip-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    netpbm \
-    imagemagick \
+        git \
+        unzip \
+        libzip-dev \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libfreetype6-dev \
+        netpbm \
+        imagemagick \
     && pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
@@ -22,11 +22,9 @@ RUN apt-get update \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
-ADD spip.ini /usr/local/etc/php/conf.d
+COPY spip.ini /usr/local/etc/php/conf.d
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout
-COPY --from=phpstan/phpstan /composer/vendor/bin/phpstan /usr/local/bin/phpstan
-COPY --from=phpstan/phpstan /composer/vendor/bin/phpstan.phar /usr/local/bin/phpstan.phar
 
 WORKDIR /build

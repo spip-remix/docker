@@ -19,4 +19,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove
 
-ADD spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
+COPY spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini

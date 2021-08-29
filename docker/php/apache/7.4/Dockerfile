@@ -2,14 +2,14 @@ FROM php:7.4-apache
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-    git \
-    unzip \
-    libzip-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    netpbm \
-    imagemagick \
+        git \
+        unzip \
+        libzip-dev \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libfreetype6-dev \
+        netpbm \
+        imagemagick \
     && a2enmod rewrite \
     && pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug \
@@ -23,4 +23,4 @@ RUN apt-get update \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
-ADD spip.ini /usr/local/etc/php/conf.d
+COPY spip.ini /usr/local/etc/php/conf.d

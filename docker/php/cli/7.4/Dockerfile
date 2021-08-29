@@ -2,14 +2,14 @@ FROM php:7.4-cli
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-    git \
-    unzip \
-    libzip-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    netpbm \
-    imagemagick \
+        git \
+        unzip \
+        libzip-dev \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libfreetype6-dev \
+        netpbm \
+        imagemagick \
     && pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
@@ -25,7 +25,7 @@ RUN apt-get update \
     && curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub \
     && echo "Done."
 
-ADD spip.ini /usr/local/etc/php/conf.d
+COPY spip.ini /usr/local/etc/php/conf.d
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout
