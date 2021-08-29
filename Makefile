@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := start
 SPIP_DIRECTORY=spip
-SPIP_VERSION=v3.2.8
+SPIP_VERSION=v4.0.0
 
 build/.done:
 	@test -d build || mkdir build
