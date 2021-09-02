@@ -35,7 +35,7 @@ SPIP is installed in `./apps/spip`.
 
 #### Xdebug
 
-- Xdebug versions are : 3.0.4 for PHP7.3 and above.
+- Xdebug versions are : 3.0.4 for PHP7.3 and above. Xdebug is not yet PHP8.1 compatible.
 
 #### sqlite3 enabled
 
@@ -80,7 +80,7 @@ create a `docker-compose.override.yml` file next to the `docker-compose.yml` fil
 
 - [spip/mod_php](https://hub.docker.com/r/spip/mod_php)
 - Content:
-  - php+apache2+mod_php (including gd and mysqli extensions)
+  - php+apache2+mod_php (including opcache, gd, zip, and mysqli extensions)
   - php.ini in default development mode + spip.ini custom directives
     - date.timezone defaults to Europe/Paris
     - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
@@ -102,29 +102,35 @@ TODO.
 
 ## Version Matrix
 
-### spip/tools
+### spip/tools and spip/mod_php
 
-| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1       |
-| ---------------- | ------- | ------- | ------- | ------------- |
-| 3.2 (3.2.11)     | 7.3-cli | 7.4-cli | N/A     | N/A           |
-| 4.0 (4.0.0)      | 7.3-cli | 7.4-cli | 8.0-cli | 8.1-beta3-cli |
-| 4.1 (4.1.x-dev)  | N/A     | 7.4-cli | 8.0-cli | 8.1-beta3-cli |
-
-### spip/mod_php
-
-| SPIP Version     | PHP 7.3    | PHP 7.4 | PHP 8.0    |
-| ---------------- | ---------- | ------- | ---------- |
-| 3.2 (3.2.11)     | N/A        | N/A     | N/A        |
-| 3.4 (3.4.x-dev)  | 7.3-apache | latest  | latest     |
+| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1   |
+| ---------------- | ------- | ------- | ------- | --------- |
+| 3.2 (3.2.11)     | 7.3     | 7.4     | N/A     | N/A       |
+| 4.0 (4.0.0)      | 7.3     | 7.4     | latest  | N/A       |
+| 4.1 (4.1.x-dev)  | N/A     | 7.4     | latest  | 8.1-RC1   |
 
 ### spip/fpm
 
-| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 |
-| ---------------- | ------- | ------- | ------- |
-| 3.2 (3.2.11)     | N/A     | N/A     | N/A     |
-| 3.4 (3.4.x-dev)  | 7.3-fpm | latest  | 8.0-fpm |
+TODO
 
-Defaults to 7.2-cli+7.2-fpm images and SPIP3.2.11 installation
+### PHP Versions
+
+TODO
+
+#### PHP oldest versions
+
+TODO
+
+### SPIP Versions
+
+TODO
+
+#### SPIP oldest versions
+
+TODO
+
+## Customization
 
 To test with alternative PHP Versions :
 
