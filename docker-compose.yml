@@ -3,8 +3,8 @@ services:
   tools:
     build:
       context: ./docker/php
-      dockerfile: cli/8.0/Dockerfile
-    image: spip/tools:8.0
+      dockerfile: cli/8.1/Dockerfile
+    image: spip/tools:8.1
     networks:
     - dev.spip.local
     hostname: tools
@@ -15,7 +15,7 @@ services:
     - XDEBUG_CONFIG="idekey=my-ide-key"
 
   sql:
-    image: mariadb:10.3
+    image: mariadb:10.6
     networks:
     - dev.spip.local
     hostname: sql
@@ -30,8 +30,8 @@ services:
   dev.spip.local:
     build:
       context: ./docker/php
-      dockerfile: apache/8.0/Dockerfile
-    image: spip/mod_php:8.0
+      dockerfile: apache/8.1/Dockerfile
+    image: spip/mod_php:8.1.0RC3
     networks:
     - dev.spip.local
     ports:
