@@ -11,6 +11,8 @@ RUN apt-get update \
         netpbm \
         imagemagick \
     && a2enmod rewrite \
+    && pecl install xdebug-3.1.0 \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
@@ -19,4 +21,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove
 
-COPY spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
+COPY spip.ini /usr/local/etc/php/conf.d/spip.ini

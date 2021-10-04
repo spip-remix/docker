@@ -10,6 +10,8 @@ RUN apt-get update \
     libfreetype6-dev \
     netpbm \
     imagemagick \
+    && pecl install xdebug-3.1.0 \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable opcache \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
@@ -20,7 +22,7 @@ RUN apt-get update \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
-COPY spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini
+COPY spip.ini /usr/local/etc/php/conf.d/spip.ini
 
 COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout

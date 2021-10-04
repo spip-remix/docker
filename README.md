@@ -35,7 +35,7 @@ SPIP is installed in `./apps/spip`.
 
 #### Xdebug
 
-- Xdebug versions are : 3.0.4 for PHP7.3 and above. Xdebug is not yet PHP8.1 compatible.
+- Xdebug versions are : 3.1.0 for PHP7.3 and above.
 
 #### sqlite3 enabled
 
@@ -158,14 +158,14 @@ services:
   tools:
     build:
       context: ./docker/php
-      dockerfile: cli/5.4/Dockerfile
-    image: spip/tools:5.4-cli
+      dockerfile: cli/7.3/Dockerfile
+    image: spip/tools:7.3-cli
 
   dev.spip.local:
     build:
       context: ./docker/php
-      dockerfile: apache/5.4/Dockerfile
-    image: spip/mod_php:5.4
+      dockerfile: apache/7.3/Dockerfile
+    image: spip/mod_php:7.3
     volumes:
     - ./apps/spip:/var/www/html
 ```
