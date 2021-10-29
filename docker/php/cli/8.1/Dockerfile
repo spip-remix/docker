@@ -1,4 +1,4 @@
-FROM php:8.1.0RC4-cli
+FROM php:8.1.0RC5-cli
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
