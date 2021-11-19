@@ -14,6 +14,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove \
+    && pecl clear-cache \
     && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
