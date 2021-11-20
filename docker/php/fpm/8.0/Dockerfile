@@ -12,7 +12,7 @@ RUN apt-get update \
         imagemagick \
     && pecl install xdebug-3.1.1 \
     && docker-php-ext-enable opcache xdebug \
-    && docker-php-ext-configure gd --with-png-dir=/usr --with-freetype-dir=/usr --with-jpeg-dir=/usr \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove \
