@@ -8,7 +8,6 @@ RUN apt-get update \
         libpng-dev \
         libjpeg62-turbo-dev \
         libfreetype6-dev \
-        libmagickwand-dev \
         netpbm \
         imagemagick \
     && pecl install xdebug-3.1.1 \
@@ -18,11 +17,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove \
     && pecl clear-cache \
-    && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
+    && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && mkdir /root/.composer \
     && curl -s -o /root/.composer/keys.dev.pub https://composer.github.io/snapshots.pub \
     && curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub \
-    && echo "Done."
+    && true
 
 COPY spip.ini /usr/local/etc/php/conf.d
 
