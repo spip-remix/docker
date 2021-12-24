@@ -1,4 +1,8 @@
+ARG COMPOSER_VERSION
+FROM composer:${COMPOSER_VERSION} as composer
+
 FROM php:8.0-cli
+ARG XDEBUG_VERSION
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -10,7 +14,7 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
-    && pecl install xdebug-3.1.1 \
+    && pecl install xdebug-${XDEBUG_VERSION} \
     && docker-php-ext-enable opcache xdebug \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \
@@ -25,7 +29,7 @@ RUN apt-get update \
 
 COPY spip.ini /usr/local/etc/php/conf.d
 
-COPY --from=composer:2.1 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 COPY --from=spipremix/checkout /checkout /usr/local/bin/checkout
 
 ENV COMPOSER_ALLOW_SUPERUSER=1

@@ -1,25 +1,21 @@
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}-cli-alpine AS tools
 ARG XDEBUG_VERSION
-FROM php:8.0-cli-alpine AS build
+ARG COMPOSER_VERSION
 
-RUN apk add --no-cache $PHPIZE_DEPS \
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
     libzip-dev \
     freetype-dev \
     libpng-dev \
     jpeg-dev \
     libjpeg-turbo-dev \
     && pecl install xdebug-${XDEBUG_VERSION} \
+    && pecl clear-cache \
+    && docker-php-ext-configure zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \
-    && true
-
-FROM php:8.0-cli-alpine AS spip-tools
-
-COPY --from=build /usr/local/lib/php/extensions/no-debug-non-zts-20200930/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20200930
-COPY --from=build /usr/lib/libzip.so* /usr/lib
-COPY --from=build /usr/lib/libbz2.so* /usr/lib
-COPY --from=build /usr/lib/libpng16.so* /usr/lib
-COPY --from=build /usr/lib/libjpeg.so* /usr/lib
-COPY --from=build /usr/lib/libfreetype.so* /usr/lib
+    && apk del .build-deps
 
 RUN apk add --no-cache \
     unzip \

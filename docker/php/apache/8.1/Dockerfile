@@ -1,4 +1,5 @@
-FROM php:8.1.0RC6-apache
+FROM php:8.1-apache
+ARG XDEBUG_VERSION
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -8,7 +9,7 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
-    && pecl install xdebug-3.1.1 \
+    && pecl install xdebug-${XDEBUG_VERSION} \
     && docker-php-ext-enable opcache xdebug \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \

@@ -2,6 +2,11 @@
 
 Containers for SPIP
 
+Based on PHP docker official images
+X.Y-cli-alpine for tools
+X.Y-fpm-alpine for PHP_FPM (+ nginx reverse proxy)
+X.Y-apache for apache php module (debian stable)
+
 ## Usage
 
 ```bash
@@ -10,10 +15,10 @@ cd spip-docker
 make start
 ```
 
-Open <http://localhost:8000/ecrire> in a web browser.
+Open <https://localhost/ecrire> in a web browser.
 
-- login: `admin`
-- password: `spip3.2.11`
+- login: `spip`
+- password: `ecrire`
 
 SPIP is installed in `./apps/spip`.
 
@@ -32,10 +37,11 @@ SPIP is installed in `./apps/spip`.
   - [SPIP Checkout](https://git.spip.net/spip-contrib-outils/checkout)
   - [netpbm](http://netpbm.sourceforge.net/)
   - [ImageMagick](https://imagemagick.org/)
+  - +git+unzip for composer/checkout to run
 
 #### Xdebug
 
-- Xdebug versions are : 3.1.0 for PHP7.3 and above.
+- Xdebug versions are : 3.1.2 for PHP7.4 and above.
 
 #### sqlite3 enabled
 
@@ -58,8 +64,8 @@ Default SQL Server is MariaDB 10.3 (default sql server in Debian Buster)
 
 Parameters:
 
-- host: `sql` default to 3306 port
-- user: `root`
+- host: `database` default to 3306 port
+- user: `spip`
 - password: `spip`
 
 Alternatively, for MySQL 5.7,
@@ -70,7 +76,7 @@ create a `docker-compose.override.yml` file next to the `docker-compose.yml` fil
     image: mysq:5.7
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-    - ./data/spip:/var/lib/mysql
+    - data-spip:/var/lib/mysql
     - ./docker/sql/mysql/5.7:/docker-entrypoint-initdb.d
 ```
 
@@ -80,7 +86,7 @@ create a `docker-compose.override.yml` file next to the `docker-compose.yml` fil
 
 - [spip/mod_php](https://hub.docker.com/r/spip/mod_php)
 - Content:
-  - php+apache2+mod_php (including opcache, gd, zip, and mysqli extensions)
+  - php+apache2+mod_php+mod_rewrite (including opcache, gd, zip, and mysqli extensions)
   - php.ini in default development mode + spip.ini custom directives
     - date.timezone defaults to Europe/Paris
     - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
@@ -106,9 +112,9 @@ TODO.
 
 | SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1   |
 | ---------------- | ------- | ------- | ------- | --------- |
-| 3.2 (3.2.11)     | 7.3     | 7.4     | N/A     | N/A       |
-| 4.0 (4.0.0)      | 7.3     | 7.4     | latest  | N/A       |
-| 4.1 (4.1.x-dev)  | N/A     | 7.4     | latest  | 8.1-RC6   |
+| 3.2 (3.2.12)     | 7.3.33  | 7.4.27  | N/A     | N/A       |
+| 4.0 (4.0.1)      | 7.3.33  | 7.4.27  | latest  | N/A       |
+| 4.1 (4.1.x-dev)  | N/A     | 7.4.27  | latest  | 8.1.1     |
 
 ### spip/fpm
 

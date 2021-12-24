@@ -1,31 +1,36 @@
-FROM php:8.1.0-cli-alpine3.14  AS build
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}-cli-alpine AS tools
+ARG XDEBUG_VERSION
 
-RUN apk add --no-cache $PHPIZE_DEPS \
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
     libzip-dev \
     freetype-dev \
     libpng-dev \
     jpeg-dev \
     libjpeg-turbo-dev \
-    && pecl install xdebug-3.1.1 \
+    && pecl install xdebug-${XDEBUG_VERSION} \
+    && pecl clear-cache \
+    && docker-php-ext-configure zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mysqli zip \
-    && true
+    && apk del .build-deps
 
-FROM php:8.1.0-cli-alpine3.14 AS spip-cli
-
-COPY --from=build /usr/local/lib/php/extensions/no-debug-non-zts-20200930/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20200930
-COPY --from=build /usr/lib/libzip.so* /usr/lib
-COPY --from=build /usr/lib/libbz2.so* /usr/lib
-COPY --from=build /usr/lib/libpng16.so* /usr/lib
-COPY --from=build /usr/lib/libjpeg.so* /usr/lib
-COPY --from=build /usr/lib/libfreetype.so* /usr/lib
-
-RUN docker-php-ext-enable opcache xdebug gd mysqli zip \
+RUN apk add --no-cache \
+    unzip \
+    git \
+    && docker-php-ext-enable opcache xdebug gd mysqli zip \
     && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
+    && mkdir /root/.composer \
+    && curl -s -o /root/.composer/keys.dev.pub https://composer.github.io/snapshots.pub \
+    && curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub \
     && true
 
 COPY spip.ini /usr/local/etc/php/conf.d
 
-COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:${COMPOSER_VERSION} /usr/bin/composer /usr/bin/composer
+COPY --from=spipremix/checkout /checkout /usr/bin/checkout
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 WORKDIR /build
