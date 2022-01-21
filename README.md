@@ -94,6 +94,8 @@ create a `docker-compose.override.yml` file next to the `docker-compose.yml` fil
   - [netpbm](http://netpbm.sourceforge.net/)
   - [ImageMagick](https://imagemagick.org/)
 
+TODO : accepter les .htacces
+
 #### PHP-FPM with Apache httpd Server
 
 TODO.
@@ -113,8 +115,8 @@ TODO.
 | SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1   |
 | ---------------- | ------- | ------- | ------- | --------- |
 | 3.2 (3.2.12)     | 7.3.33  | 7.4.27  | N/A     | N/A       |
-| 4.0 (4.0.1)      | 7.3.33  | 7.4.27  | latest  | N/A       |
-| 4.1 (4.1.x-dev)  | N/A     | 7.4.27  | latest  | 8.1.1     |
+| 4.0 (4.0.1)      | 7.3.33  | 7.4.27  | 8.0.15  | N/A       |
+| 4.1 (4.1.x-dev)  | N/A     | 7.4.27  | 8.0.15  | 8.1.2     |
 
 ### spip/fpm
 
