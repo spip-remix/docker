@@ -5,11 +5,11 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-ROLE=cli #apache fpm
+ROLE=cli #apache (not on alpine) fpm
 SPIP_ROLE=tools #mod_php fpm
 
 # Check official images against ours
-for version in 7.3 7.4 8.0 8.1;
+for version in 7.4 8.0 8.1;
 do
     SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
     DOCKER_IMAGE="php:${version}-${ROLE}-alpine"

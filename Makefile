@@ -48,8 +48,8 @@ build-alpine:
 
 build:
 	docker build --build-arg XDEBUG_VERSION=3.1.2 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:7.4.27 -t spip/tools:7.4 -f docker/php/cli/7.4/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.2 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:8.0.15 -t spip/tools:8.0 -f docker/php/cli/8.0/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.2 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:latest -t spip/tools:8.1.2 -t spip/tools:8.1 -f docker/php/cli/8.1/Dockerfile docker/php
+	docker build --build-arg XDEBUG_VERSION=3.1.2 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:latest -t spip/tools:8.0.15 -t spip/tools:8.0 -f docker/php/cli/8.0/Dockerfile docker/php
+	docker build --build-arg XDEBUG_VERSION=3.1.2 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:8.1.2 -t spip/tools:8.1 -f docker/php/cli/8.1/Dockerfile docker/php
 	docker build --build-arg XDEBUG_VERSION=3.1.2 -t spip/mod_php:7.4.27 -t spip/mod_php:7.4 -f docker/php/apache/7.4/Dockerfile docker/php
 	docker build --build-arg XDEBUG_VERSION=3.1.2 -t spip/mod_php:latest -t spip/mod_php:8.0.15 -t spip/mod_php:8.0 -f docker/php/apache/8.0/Dockerfile docker/php
 	docker build --build-arg XDEBUG_VERSION=3.1.2 -t spip/mod_php:8.1.2 -t spip/mod_php:8.1 -f docker/php/apache/8.1/Dockerfile docker/php
