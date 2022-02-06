@@ -57,6 +57,14 @@ build:
 	docker build --build-arg XDEBUG_VERSION=3.1.2 -t spip/fpm:latest -t spip/fpm:8.0.15 -t spip/fpm:8.0 -f docker/php/fpm/8.0/Dockerfile docker/php
 	docker build --build-arg XDEBUG_VERSION=3.1.2 -t spip/fpm:8.1.2 -t spip/fpm:8.1 -f docker/php/fpm/8.1/Dockerfile docker/php
 
+build-5.6-apache:
+	docker pull spip/mod_php:5.6
+	docker build -t spip/mod_php:5.6 -t spip/mod_php:5.6.40 -f docker/php/apache/5.6/Dockerfile docker/php
+
+push-5.6-apache:
+	docker push spip/mod_php:5.6
+	docker push spip/mod_php:5.6.40
+
 push-alpine:
 	docker push spip/tools:8.1-alpine
 	docker push spip/tools:8.1.2-alpine
