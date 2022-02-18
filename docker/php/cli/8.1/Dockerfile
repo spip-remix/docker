@@ -14,6 +14,8 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
+    && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
+    && pear config-set php_ini "$PHP_INI_DIR/php.ini" \
     && pecl install xdebug-${XDEBUG_VERSION} \
     && docker-php-ext-enable opcache xdebug \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -21,7 +23,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove \
     && pecl clear-cache \
-    && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && mkdir /root/.composer \
     && curl -s -o /root/.composer/keys.dev.pub https://composer.github.io/snapshots.pub \
     && curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub \

@@ -114,9 +114,9 @@ TODO.
 
 | SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1   |
 | ---------------- | ------- | ------- | ------- | --------- |
-| 3.2 (3.2.12)     | 7.3.33  | 7.4.27  | N/A     | N/A       |
-| 4.0 (4.0.1)      | 7.3.33  | 7.4.27  | 8.0.15  | N/A       |
-| 4.1 (4.1.x-dev)  | N/A     | 7.4.27  | 8.0.15  | 8.1.2     |
+| 3.2 (3.2.13)     | 7.3.33  | 7.4.27  | N/A     | N/A       |
+| 4.0 (4.0.4)      | 7.3.33  | 7.4.27  | 8.0.16  | N/A       |
+| 4.1 (4.1.0-beta) | N/A     | 7.4.27  | 8.0.16  | 8.1.3     |
 
 ### spip/fpm
 
@@ -201,4 +201,15 @@ services:
     volumes:
     - ./apps/spip-dev:/build
     entrypoint: ["php", "-S", "php-server:5919", "-t", "."]
+```
+
+## Controls
+
+```bash
+# control explicit loaded extensions
+egrep -r "^(zend_)?extension" /usr/local/etc/php
+
+# list *.so in extension_dir
+php -r "echo ini_get('extension_dir').PHP_EOL;"
+ls -l $(php -r "echo ini_get('extension_dir');")
 ```
