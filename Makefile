@@ -89,7 +89,6 @@ push:
 	docker push spip/mod_php:latest
 	docker push spip/mod_php:8.1.3
 	docker push spip/mod_php:8.1
-	docker push spip/mod_php:latest
 	docker push spip/fpm:7.4.28
 	docker push spip/fpm:7.4
 	docker push spip/fpm:8.0.16

@@ -10,6 +10,8 @@ RUN apt-get update \
         imagemagick \
     && apt-get upgrade -y curl \
     && a2enmod rewrite \
+    && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
+    && pear config-set php_ini "$PHP_INI_DIR/php.ini" \
     && pecl channel-update pecl.php.net \
     && pecl install xdebug-2.5.5 \
     && docker-php-ext-enable xdebug opcache \
@@ -17,7 +19,6 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd zip mysqli \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean && apt-get autoremove \
-    && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && echo "Done."
 
 ADD spip-noxdbg.ini /usr/local/etc/php/conf.d/spip.ini

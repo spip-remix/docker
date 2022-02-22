@@ -9,6 +9,7 @@ RUN apt-get update \
         libfreetype6-dev \
         netpbm \
         imagemagick \
+    && a2enmod rewrite \
     && ln -s "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && pear config-set php_ini "$PHP_INI_DIR/php.ini" \
     && pecl install xdebug-${XDEBUG_VERSION} \
