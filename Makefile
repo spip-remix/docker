@@ -42,20 +42,28 @@ test:
 	./test.sh
 
 build-alpine:
-	docker build -t spip/tools:8.1.3-alpine -t spip/tools:8.1-alpine -f docker/php/cli/8.1-alpine/Dockerfile docker/php
-	docker build -t spip/tools:latest-alpine -t spip/tools:8.0.16-alpine -t spip/tools:8.0-alpine -f docker/php/cli/8.0-alpine/Dockerfile docker/php
+	docker build -t spip/tools:8.1.4-alpine -t spip/tools:8.1-alpine -f docker/php/cli/8.1-alpine/Dockerfile docker/php
+	docker build -t spip/tools:latest-alpine -t spip/tools:8.0.17-alpine -t spip/tools:8.0-alpine -f docker/php/cli/8.0-alpine/Dockerfile docker/php
 	docker build -t spip/tools:7.4.28-alpine -t spip/tools:7.4-alpine -f docker/php/cli/7.4-alpine/Dockerfile docker/php
 
 build:
+	echo "build spip/tools:7.4.x"
 	docker build --build-arg XDEBUG_VERSION=3.1.3 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:7.4.28 -t spip/tools:7.4 -f docker/php/cli/7.4/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:latest -t spip/tools:8.0.16 -t spip/tools:8.0 -f docker/php/cli/8.0/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:8.1.3 -t spip/tools:8.1 -f docker/php/cli/8.1/Dockerfile docker/php
+	echo "build spip/tools:8.0.x"
+	docker build --build-arg XDEBUG_VERSION=3.1.3 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:latest -t spip/tools:8.0.17 -t spip/tools:8.0 -f docker/php/cli/8.0/Dockerfile docker/php
+	echo "build spip/tools:8.1.x"
+	docker build --build-arg XDEBUG_VERSION=3.1.3 --build-arg COMPOSER_VERSION=2.2 -t spip/tools:8.1.4 -t spip/tools:8.1 -f docker/php/cli/8.1/Dockerfile docker/php
+	echo "build spip/mod_php:7.4.x"
 	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/mod_php:7.4.28 -t spip/mod_php:7.4 -f docker/php/apache/7.4/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/mod_php:latest -t spip/mod_php:8.0.16 -t spip/mod_php:8.0 -f docker/php/apache/8.0/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/mod_php:8.1.3 -t spip/mod_php:8.1 -f docker/php/apache/8.1/Dockerfile docker/php
+	echo "build spip/mod_php:8.0.x"
+	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/mod_php:latest -t spip/mod_php:8.0.17 -t spip/mod_php:8.0 -f docker/php/apache/8.0/Dockerfile docker/php
+	echo "build spip/mod_php:8.1.x"
+	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/mod_php:8.1.4 -t spip/mod_php:8.1 -f docker/php/apache/8.1/Dockerfile docker/php
+
+build-fpm:
 	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/fpm:7.4.28 -t spip/fpm:7.4 -f docker/php/fpm/7.4/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/fpm:latest -t spip/fpm:8.0.16 -t spip/fpm:8.0 -f docker/php/fpm/8.0/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/fpm:8.1.3 -t spip/fpm:8.1 -f docker/php/fpm/8.1/Dockerfile docker/php
+	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/fpm:latest -t spip/fpm:8.0.17 -t spip/fpm:8.0 -f docker/php/fpm/8.0/Dockerfile docker/php
+	docker build --build-arg XDEBUG_VERSION=3.1.3 -t spip/fpm:8.1.4 -t spip/fpm:8.1 -f docker/php/fpm/8.1/Dockerfile docker/php
 
 build-5.6-apache:
 	docker pull spip/mod_php:5.6
@@ -67,9 +75,9 @@ push-5.6-apache:
 
 push-alpine:
 	docker push spip/tools:8.1-alpine
-	docker push spip/tools:8.1.3-alpine
+	docker push spip/tools:8.1.4-alpine
 	docker push spip/tools:latest-alpine
-	docker push spip/tools:8.0.16-alpine
+	docker push spip/tools:8.0.17-alpine
 	docker push spip/tools:8.0-alpine
 	docker push spip/tools:7.4.28-alpine
 	docker push spip/tools:7.4-alpine
@@ -77,22 +85,24 @@ push-alpine:
 push:
 	docker push spip/tools:7.4.28
 	docker push spip/tools:7.4
-	docker push spip/tools:8.0.16
+	docker push spip/tools:8.0.17
 	docker push spip/tools:8.0
 	docker push spip/tools:latest
-	docker push spip/tools:8.1.3
+	docker push spip/tools:8.1.4
 	docker push spip/tools:8.1
 	docker push spip/mod_php:7.4.28
 	docker push spip/mod_php:7.4
-	docker push spip/mod_php:8.0.16
+	docker push spip/mod_php:8.0.17
 	docker push spip/mod_php:8.0
 	docker push spip/mod_php:latest
-	docker push spip/mod_php:8.1.3
+	docker push spip/mod_php:8.1.4
 	docker push spip/mod_php:8.1
+
+push-fpm:
 	docker push spip/fpm:7.4.28
 	docker push spip/fpm:7.4
-	docker push spip/fpm:8.0.16
+	docker push spip/fpm:8.0.17
 	docker push spip/fpm:8.0
-	docker push spip/fpm:8.1.3
+	docker push spip/fpm:8.1.4
 	docker push spip/fpm:8.1
 	docker push spip/fpm:latest
