@@ -39,3 +39,4 @@ do
     fi
 done
 # EXTENSION_DIR=$(php -r 'echo ini_get("extension_dir");')
+# php-config --extension-dir
