@@ -41,7 +41,7 @@ SPIP is installed in `./apps/spip`.
 
 #### Xdebug
 
-- Xdebug versions are : 3.1.2 for PHP7.4 and above.
+- Xdebug versions are : 3.1.4 for PHP7.4 and above.
 
 #### sqlite3 enabled
 
