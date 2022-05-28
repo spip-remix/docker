@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4.28-apache
 ARG XDEBUG_VERSION
 
 RUN apt-get update \
