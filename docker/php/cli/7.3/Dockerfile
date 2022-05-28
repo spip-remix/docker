@@ -1,5 +1,5 @@
 ARG XDEBUG_VERSION
-FROM php:7.3-cli
+FROM php:7.4.16-cli
 ARG XDEBUG_VERSION
 
 RUN apt-get update \
