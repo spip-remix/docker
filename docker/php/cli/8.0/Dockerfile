@@ -1,7 +1,7 @@
 ARG COMPOSER_VERSION
 FROM composer:${COMPOSER_VERSION} as composer
 
-FROM php:8.0-cli
+FROM php:8.2.15-cli
 ARG XDEBUG_VERSION
 
 RUN apt-get update \
