@@ -2,6 +2,8 @@
 
 ## Build
 
+### PHP CLI (a.k.a. spip/tools)
+
 ```bash
 jq -r '.[]|
     "docker build"+
@@ -18,6 +20,38 @@ jq -r '.[]|
 sh build.sh
 rm build.sh
 docker push --all-tags spip/tools
+```
+
+### apache+mod_php (a.k.a. spip/apache)
+
+```bash
+jq -r '.[]|
+    "docker build"+
+    " -t spip/apache:"+.version+
+    " -t spip/apache:"+.php+
+    (if .latest then " -t spip/apache" else "" end)+
+    " --build-arg PHP="+.php+
+    " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.apache ."
+' versions.json > apache-build.sh
+sh apache-build.sh
+rm apache-build.sh
+docker push --all-tags spip/apache
+```
+
+### PHP-FPM (a.k.a. spip/fpm)
+
+```bash
+jq -r '.[]|
+    "docker build"+
+    " -t spip/fpm:"+.version+
+    " -t spip/fpm:"+.php+
+    (if .latest then " -t spip/fpm" else "" end)+
+    " --build-arg PHP="+.php+
+    " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.fpm ."
+' versions.json > fpm-build.sh
+sh fpm-build.sh
+rm fpm-build.sh
+docker push --all-tags spip/fpm
 ```
 
 ## Usage
