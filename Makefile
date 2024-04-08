@@ -1,108 +1,76 @@
-.DEFAULT_GOAL := start
-SPIP_DIRECTORY=spip
-SPIP_VERSION=v4.0.0
+.PHONY: help clean phplint phpcompat audit outdated phpstan
 
-build/.done:
-	@test -d build || mkdir build
-	@docker-compose build tools
-	@touch $@
+## —— The SpipRemix Makefile ——
+help: ## Outputs this help screen
+	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-build/.pulled:
-	@test -d build || mkdir build
-	@docker-compose pull sql dev.spip.local
-	@touch $@
+clean: ## Clean build directory
+	@rm -Rf build
 
-apps/$(SPIP_DIRECTORY)/config/connect.php: apps/$(SPIP_DIRECTORY)/config/.ok docker/spip/$(SPIP_VERSION)/connect.php
-	@cp -f docker/spip/$(SPIP_VERSION)/connect.php apps/$(SPIP_DIRECTORY)/config/connect.php
+/root/.composer/vendor/bin/phpstan:
+	@echo "phpstan is not present on this version of friendsofsonar."
+	@false
 
-apps/$(SPIP_DIRECTORY)/config/chmod.php: apps/$(SPIP_DIRECTORY)/config/.ok docker/spip/$(SPIP_VERSION)/chmod.php
-	@cp -f docker/spip/$(SPIP_VERSION)/chmod.php apps/$(SPIP_DIRECTORY)/config/chmod.php
+composer.json:
+	@echo "fichier $@ manquant."
+	@false
 
-apps/$(SPIP_DIRECTORY)/config/.ok: build/.pulled
-	@test -d apps || mkdir apps
-	@test -d data/$(SPIP_DIRECTORY) || mkdir -p data/$(SPIP_DIRECTORY)
-	@docker-compose run tools checkout spip -b$(SPIP_VERSION) $(SPIP_DIRECTORY)
-	@touch $@
+composer.lock: composer.json
+	@composer validate --no-check-publish --quiet --no-check-lock
+	@echo "please run composer update --lock before anything else."
+	@false
 
-.PHONY: clean reset start stop test build push
-clean:
-	@rm -f apps/$(SPIP_DIRECTORY)/config/.ok
-	@rm -f build/.pulled
+phplint.lst:
+	@echo "fichier $@ manquant."
+	@false
 
-reset: clean stop
-	@rm -Rf apps data
+phpcs.xml:
+	@echo "fichier $@ manquant."
+	@false
 
-start: apps/$(SPIP_DIRECTORY)/config/connect.php apps/$(SPIP_DIRECTORY)/config/chmod.php
-	@docker-compose up -d dev.spip.local
+phpstan.neon:
+	@echo "fichier $@ manquant."
+	@false
 
-stop:
-	@docker-compose down
+build/phplint.txt: phplint.lst
+	@test -d build || mkdir -p build
+	@parallel-lint --no-progress $$(cat phplint.lst) | tee $@
 
-test:
-	./test.sh
+build/phpcompat.json: build/phplint.txt phpcs.xml
+	@test -d build || mkdir -p build
+	@phpcs --report-json=$@.tmp -p || true
+	@jq '.files' < $@.tmp | jq -r -f /root/.jq/phpcompat.jq > $@
+	@rm $@.tmp
 
-build-alpine:
-	docker build -t spip/tools:8.1.6-alpine -t spip/tools:8.1-alpine -f docker/php/cli/8.1-alpine/Dockerfile docker/php
-	docker build -t spip/tools:latest-alpine -t spip/tools:8.0.19-alpine -t spip/tools:8.0-alpine -f docker/php/cli/8.0-alpine/Dockerfile docker/php
-	docker build -t spip/tools:7.4.29-alpine -t spip/tools:7.4-alpine -f docker/php/cli/7.4-alpine/Dockerfile docker/php
+build/phpstan.json: /root/.composer/vendor/bin/phpstan build/phplint.txt phpstan.neon
+	@test -d build || mkdir -p build
+	@phpstan --memory-limit=-1 --error-format=json > $@ || true
+	@echo $$(jq '.totals.errors + .totals.file_errors' < $@)" erreur(s)."
 
-build:
-	echo "build spip/tools:7.4.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 --build-arg COMPOSER_VERSION=2.3 -t spip/tools:7.4.29 -t spip/tools:7.4 -f docker/php/cli/7.4/Dockerfile docker/php
-	echo "build spip/tools:8.0.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 --build-arg COMPOSER_VERSION=2.3 -t spip/tools:latest -t spip/tools:8.0.19 -t spip/tools:8.0 -f docker/php/cli/8.0/Dockerfile docker/php
-	echo "build spip/tools:8.1.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 --build-arg COMPOSER_VERSION=2.3 -t spip/tools:8.1.6 -t spip/tools:8.1 -f docker/php/cli/8.1/Dockerfile docker/php
-	echo "build spip/mod_php:7.4.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/mod_php:7.4.29 -t spip/mod_php:7.4 -f docker/php/apache/7.4/Dockerfile docker/php
-	echo "build spip/mod_php:8.0.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/mod_php:latest -t spip/mod_php:8.0.19 -t spip/mod_php:8.0 -f docker/php/apache/8.0/Dockerfile docker/php
-	echo "build spip/mod_php:8.1.x"
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/mod_php:8.1.6 -t spip/mod_php:8.1 -f docker/php/apache/8.1/Dockerfile docker/php
+build/outdated.json: composer.lock
+	@test -d build || mkdir -p build
+	@composer outdated --format=json > $@.tmp || true
+	@cat $@.tmp | jq -f /root/.jq/outdated.jq > $@
+	@rm $@.tmp
 
-build-fpm:
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/fpm:7.4.29 -t spip/fpm:7.4 -f docker/php/fpm/7.4/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/fpm:latest -t spip/fpm:8.0.19 -t spip/fpm:8.0 -f docker/php/fpm/8.0/Dockerfile docker/php
-	docker build --build-arg XDEBUG_VERSION=3.1.4 -t spip/fpm:8.1.6 -t spip/fpm:8.1 -f docker/php/fpm/8.1/Dockerfile docker/php
+build/audit.json: composer.lock
+	@if ! composer help audit >/dev/null 2>&1; \
+	then \
+		echo "No audit capability. Try with a newer version (7.2+)."; \
+		false; \
+	fi
+	@test -d build || mkdir -p build
+	@composer audit --locked --no-dev --format=json > $@.tmp || true
+	@cat $@.tmp | jq -f /root/.jq/audit.jq > $@
+	@rm $@.tmp
 
-build-5.6-apache:
-	docker pull spip/mod_php:5.6
-	docker build -t spip/mod_php:5.6 -t spip/mod_php:5.6.40 -f docker/php/apache/5.6/Dockerfile docker/php
+phplint: build/phplint.txt ## Find syntax errors
 
-push-5.6-apache:
-	docker push spip/mod_php:5.6
-	docker push spip/mod_php:5.6.40
+phpcompat: build/phpcompat.json
 
-push-alpine:
-	docker push spip/tools:8.1-alpine
-	docker push spip/tools:8.1.6-alpine
-	docker push spip/tools:latest-alpine
-	docker push spip/tools:8.0.19-alpine
-	docker push spip/tools:8.0-alpine
-	docker push spip/tools:7.4.29-alpine
-	docker push spip/tools:7.4-alpine
+phpstan: build/phpstan.json ## Find bugs with phpstaan
 
-push:
-	docker push spip/tools:7.4.29
-	docker push spip/tools:7.4
-	docker push spip/tools:8.0.19
-	docker push spip/tools:8.0
-	docker push spip/tools:latest
-	docker push spip/tools:8.1.6
-	docker push spip/tools:8.1
-	docker push spip/mod_php:7.4.29
-	docker push spip/mod_php:7.4
-	docker push spip/mod_php:8.0.19
-	docker push spip/mod_php:8.0
-	docker push spip/mod_php:latest
-	docker push spip/mod_php:8.1.6
-	docker push spip/mod_php:8.1
+## External vulnerabilities
+outdated: build/outdated.json  ## Outdated packages
 
-push-fpm:
-	docker push spip/fpm:7.4.29
-	docker push spip/fpm:7.4
-	docker push spip/fpm:8.0.19
-	docker push spip/fpm:8.0
-	docker push spip/fpm:8.1.6
-	docker push spip/fpm:8.1
-	docker push spip/fpm:latest
+audit: build/audit.json ## Vulnerabilities

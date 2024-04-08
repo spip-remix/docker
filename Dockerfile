@@ -26,5 +26,9 @@ RUN apk --no-cache add make=~${MAKE} jq=~${JQ} unzip git && \
     curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub && \
     composer global require --no-interaction --no-progress ${TOOLS} && \
     composer clear-cache
+COPY Makefile /Makefile
+COPY .jq /root/.jq
+ENTRYPOINT [ "make", "-f", "/Makefile"]
+CMD [ "help" ]
 
 WORKDIR /build
