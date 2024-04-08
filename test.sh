@@ -9,7 +9,7 @@ ROLE=cli #apache (not on alpine) fpm
 SPIP_ROLE=tools #mod_php fpm
 
 # Check official images against ours
-for version in 7.4 8.0 8.1;
+for version in 5.6 7.4 8.0 8.1 8.2 8.3;
 do
     SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
     DOCKER_IMAGE="php:${version}-${ROLE}-alpine"

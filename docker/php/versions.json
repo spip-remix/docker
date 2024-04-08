@@ -1,0 +1,68 @@
+[
+  {
+    "version": "5.6",
+    "php": "5.6.40",
+    "composer": "2.2.23",
+    "xdebug": "0",
+    "make": "4.2",
+    "jq": "1.6",
+    "tools": [
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ]
+  },
+  {
+    "version": "7.4",
+    "php": "7.4.33",
+    "xdebug": "3.1.6",
+    "make": "4.3",
+    "jq": "1.6",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.10"
+    ]
+  },
+  {
+    "version": "8.0",
+    "php": "8.0.30",
+    "xdebug": "3.3.1",
+    "make": "4.3",
+    "jq": "1.6",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.10"
+    ]
+  },
+  {
+    "version": "8.1",
+    "php": "8.1.27",
+    "xdebug": "3.3.1",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.10"
+    ]
+  },
+  {
+    "version": "8.2",
+    "php": "8.2.17",
+    "xdebug": "3.3.1",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.10"
+    ]
+  },
+  {
+    "latest": true,
+    "version": "8.3",
+    "php": "8.3.4",
+    "xdebug": "3.3.1",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.10"
+    ]
+  }
+]
