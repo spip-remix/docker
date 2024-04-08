@@ -15,6 +15,7 @@ jq -r '.[]|
     (if .composer then " --build-arg COMPOSER="+.composer else "" end)+
     (if .make then " --build-arg MAKE="+.make else "" end)+
     (if .jq then " --build-arg JQ="+.jq else "" end)+
+    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
     " --build-arg TOOLS=\""+(.tools|join(" "))+"\" ."
 ' versions.json > build.sh
 sh build.sh
@@ -31,6 +32,7 @@ jq -r '.[]|
     " -t spip/apache:"+.php+
     (if .latest then " -t spip/apache" else "" end)+
     " --build-arg PHP="+.php+
+    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
     " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.apache ."
 ' versions.json > apache-build.sh
 sh apache-build.sh
@@ -47,6 +49,7 @@ jq -r '.[]|
     " -t spip/fpm:"+.php+
     (if .latest then " -t spip/fpm" else "" end)+
     " --build-arg PHP="+.php+
+    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
     " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.fpm ."
 ' versions.json > fpm-build.sh
 sh fpm-build.sh

@@ -66,7 +66,7 @@ build/audit.json: composer.lock
 
 phplint: build/phplint.txt ## Find syntax errors
 
-phpcompat: build/phpcompat.json
+phpcompat: build/phpcompat.json ## Check PHP Compatibility
 
 phpstan: build/phpstan.json ## Find bugs with phpstaan
 
