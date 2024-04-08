@@ -1,217 +1,100 @@
-# spip-docker
+# Friends of SPIP
 
-Containers for SPIP
+## Build
 
-Based on PHP docker official images
-X.Y-cli-alpine for tools
-X.Y-fpm-alpine for PHP_FPM (+ nginx reverse proxy)
-X.Y-apache for apache php module (debian stable)
+```bash
+jq -r '.[]|
+    "docker build"+
+    " -t spip/tools:"+.version+
+    " -t spip/tools:"+.php+
+    (if .latest then " -t spip/tools" else "" end)+
+    " --build-arg PHP="+.php+
+    " --build-arg XDEBUG="+.xdebug+
+    (if .composer then " --build-arg COMPOSER="+.composer else "" end)+
+    (if .make then " --build-arg MAKE="+.make else "" end)+
+    (if .jq then " --build-arg JQ="+.jq else "" end)+
+    " --build-arg TOOLS=\""+(.tools|join(" "))+"\" ."
+' versions.json > build.sh
+sh build.sh
+rm build.sh
+docker push --all-tags spip/tools
+```
 
 ## Usage
 
-```bash
-git clone https://github.com/JamesRezo/spip-docker.git
-cd spip-docker
-make start
-```
-
-Open <https://localhost/ecrire> in a web browser.
-
-- login: `spip`
-- password: `ecrire`
-
-SPIP is installed in `./apps/spip`.
-
-## Services
-
-### Tools
-
-- [spip/tools](https://hub.docker.com/r/spip/tools)
-- Content:
-  - php-cli (including opcache, gd, zip, and mysqli extensions)
-  - php.ini in default development mode + spip.ini custom directives
-    - date.timezone defaults to Europe/Paris
-    - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
-  - [composer](https://getcomposer.org)
-  - [Xdebug](https://xdebug.org/)
-  - [SPIP Checkout](https://git.spip.net/spip-contrib-outils/checkout)
-  - [netpbm](http://netpbm.sourceforge.net/)
-  - [ImageMagick](https://imagemagick.org/)
-  - +git+unzip for composer/checkout to run
-
-#### Xdebug
-
-- Xdebug versions are : 3.1.4 for PHP7.4 and above.
-
-#### sqlite3 enabled
-
-`config/connect.php`:
-
-```php
-<?php
-if (!defined("_ECRIRE_INC_VERSION")) return;
-$GLOBALS['spip_connect_version'] = 0.8;
-spip_connect_db('localhost','','','','spip','sqlite3', 'spip','','');
-```
-
-#### SPIP-Cli
-
-TODO.
-
-### SQL
-
-Default SQL Server is MariaDB 10.3 (default sql server in Debian Buster)
-
-Parameters:
-
-- host: `database` default to 3306 port
-- user: `spip`
-- password: `spip`
-
-Alternatively, for MySQL 5.7,
-create a `docker-compose.override.yml` file next to the `docker-compose.yml` file with the content below
-
-```yml
-  sql:
-    image: mysq:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-    - data-spip:/var/lib/mysql
-    - ./docker/sql/mysql/5.7:/docker-entrypoint-initdb.d
-```
-
-### Web Server
-
-#### mod_php
-
-- [spip/mod_php](https://hub.docker.com/r/spip/mod_php)
-- Content:
-  - php+apache2+mod_php+mod_rewrite (including opcache, gd, zip, and mysqli extensions)
-  - php.ini in default development mode + spip.ini custom directives
-    - date.timezone defaults to Europe/Paris
-    - memory_limit pushed to 160M because @imagecreatefromgif() call in SPIP 3.2 `ecrire/inc/filtres_images_lib_mini.php:504`
-  - [Xdebug](https://xdebug.org/)
-  - [netpbm](http://netpbm.sourceforge.net/)
-  - [ImageMagick](https://imagemagick.org/)
-
-TODO : accepter les .htacces
-
-#### PHP-FPM with Apache httpd Server
-
-TODO.
-
-#### PHP-FPM with Nginx
-
-TODO.
-
-### emails
-
-TODO.
-
-## Version Matrix
-
-### spip/tools and spip/mod_php
-
-| SPIP Version     | PHP 7.3 | PHP 7.4 | PHP 8.0 | PHP 8.1   | PHP 8.2
-| ---------------- | ------- | ------- | ------- | --------- | -------
-| ~~3.2 (3.2.19)~~ | 7.3.33  | 7.4.33  | N/A     | N/A       | N/A
-| ~~4.0 (4.0.4)~~  | 7.3.33  | 7.4.33  | 8.0.28  | N/A       | N/A
-| 4.1 (4.1.9)      | N/A     | 7.4.33  | 8.0.28  | 8.1.17    | N/A
-| 4.2 (4.2.2)      | N/A     | 7.4.33  | 8.0.28  | 8.1.17    | 8.2.4
-| 5.0 (dev)        | N/A     | N/A     | N/A     | 8.1.17    | 8.2.4
-
-### spip/fpm
-
-TODO
-
-### PHP Versions
-
-TODO
-
-#### PHP oldest versions
-
-TODO
-
-### SPIP Versions
-
-TODO
-
-#### SPIP oldest versions
-
-TODO
-
-## Customization
-
-To test with alternative PHP Versions :
-
-Create a `docker-compose.override.yml` file next to the `docker-compose.yml` file with the content below and change the PHP version as needed :
-
-```yml
-#Run Stable SPIP under PHP 8.0 version
-version: "3.8"
-services:
-  tools:
-    image: spip/tools:8.0-cli
-
-  dev.spip.local:
-    image: spip/mod_php:8.0
-    volumes:
-    - ./apps/spip:/var/www/html
-```
-
-or
-
-```yml
-#Run Stable SPIP under its minimum PHP version and apache2+mod_php
-version: "3.8"
-services:
-  tools:
-    build:
-      context: ./docker/php
-      dockerfile: cli/7.3/Dockerfile
-    image: spip/tools:7.3-cli
-
-  dev.spip.local:
-    build:
-      context: ./docker/php
-      dockerfile: apache/7.3/Dockerfile
-    image: spip/mod_php:7.3
-    volumes:
-    - ./apps/spip:/var/www/html
-```
-
-or
-
-```yml
-#Run Dev SPIP under stable PHP version
-version: "3.8"
-services:
-  tools:
-    build:
-      context: ./docker/php
-      dockerfile: cli/7.3/Dockerfile
-    image: spip/tools:7.3-cli
-
-  php-server:
-    image: spip/tools:7.3-cli
-    networks:
-    - dev.spip.local
-    ports:
-    - "5919:5919"
-    hostname: php-server
-    container_name: php-server
-    volumes:
-    - ./apps/spip-dev:/build
-    entrypoint: ["php", "-S", "php-server:5919", "-t", "."]
-```
-
-## Controls
+Locally:
 
 ```bash
-# control explicit loaded extensions
-egrep -r "^(zend_)?extension" /usr/local/etc/php
+docker run \
+    --rm \
+    -v $(pwd):$(pwd) \
+    -w $(pwd) \
+    spip/tools:<version> <command>
+```
 
-# list *.so in extension_dir
-php -r "echo ini_get('extension_dir').PHP_EOL;"
-ls -l $(php -r "echo ini_get('extension_dir');")
+in a `.gitlab-ci.yml`:
+
+```yml
+my-job:
+    stage: my-stage
+    image: spip/tools:<version>
+    script:
+        - <[command ...]>
+    artifacts:
+        - build
+```
+
+Custom your own image:
+
+```Dockerfile
+FROM spip/tools:<version>
+ENV COMPOSER_AUTH="{\"github-oauth\": {\"github.com\": \"xxxxx\"}, \"gitlab-token\": {\"gitlab.my.org\":\"xxxxx\"}}"
+COPY <my-tool>.make /root/makefiles
+RUN apk --no-cache add openssh git && \
+    install-php-extensions gd zip && \
+    ssh-keyscan gitlab.my.org > /root/.ssh/known_host && \
+    composer config --global gitlab-domains gitlab.my.org
+```
+
+```bash
+docker run \
+    --rm \
+    -e SSH_AUTH_SOCK=/ssh-agent
+    -v $(pwd):$(pwd) \
+    -v $SSH_AUTH_SOCK:/ssh-agent
+    -w $(pwd) \
+    spip/tools:<version> <command>
+```
+
+## TODO
+
+### V1
+
+- composer validate
+- tester la présence de fichiers optionels (phpcs.xml OU phpcs.xml.dist, idem phpstan, phpunit)
+- Préciser la syntaxe des fichiers de conf des outils
+  - `phplint.lst` : parallel-lint dir1 dir2
+- xdebug v2.x config
+- check composer audit capability (`composer help audit > /dev/null 2>&1`: 1 si KO, 0 si OK)
+- finaliser makefile (help, découpe makefiles/*.make, ...)
+- set COMPOSER_HOME to /composer (+VOLUME ? sur le cache ?) use as root or random uid
+- attention à  /root/.jq si random uid (essayer /usr/local/lib/jq)
+
+### V2
+
+- `phplint.exclude.lst` optional
+  - parallel-lint --exclude src/templates --exclude tests/fixtures src tests
+  - parallel-lint <--exclude "$(cat phplint.exclude.lst)"> $(cat phplint.lst)
+- jq + root/.jq as modules
+- include /makefiles/*.make
+- dossier `build` par défaut, env. var. pour personaliser
+- phpunit
+- deptrac
+- composer install
+- rector --dry-run
+- template config files + check command
+- src files hash(js turbo like)
+
+```bash
+snyk container test holisticagency/friendsofsonar --file=Dockerfile --exclude-base-image-vulns
 ```
