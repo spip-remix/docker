@@ -135,3 +135,12 @@ docker run \
 ```bash
 snyk container test holisticagency/friendsofsonar --file=Dockerfile --exclude-base-image-vulns
 ```
+
+### V3
+
+- "spip-cli"
+- "checkout"
+
+## apache/fpm
+
+workdir=/var/www/html

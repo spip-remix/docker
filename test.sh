@@ -5,14 +5,26 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-ROLE=cli #apache (not on alpine) fpm
-SPIP_ROLE=tools #mod_php fpm
+ROLE="${1:-cli}"
+if [ "$ROLE" != "cli" ] && [ "$ROLE" != "fpm" ] && [ "$ROLE" != "apache" ]; then
+    >&2 echo "Bad role given"
+    exit 1;
+fi
+
+SPIP_ROLE="${ROLE}"
+if [ "$ROLE" == "cli" ]; then
+    SPIP_ROLE=tools
+fi
+
+if [ "$ROLE" == "cli" ] || [ "$ROLE" == "fpm" ]; then
+    ROLE="${ROLE}-alpine"
+fi
 
 # Check official images against ours
 for version in 5.6 7.4 8.0 8.1 8.2 8.3;
 do
     SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
-    DOCKER_IMAGE="php:${version}-${ROLE}-alpine"
+    DOCKER_IMAGE="php:${version}-${ROLE}"
 
     >&2 echo -e "${NC}Looking for last PHP (${ROLE}) version in ${version} branch...${NC}"
     PATCH_VERSION=

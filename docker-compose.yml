@@ -37,7 +37,7 @@ services:
     build:
       context: ./docker/php
       dockerfile: apache/8.1/Dockerfile
-    image: spip/mod_php:8.1.2
+    image: spip/apache:8.3.4
     networks:
     - dev.spip.local
     ports:

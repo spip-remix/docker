@@ -1,5 +1,5 @@
 ARG PHP
-FROM mlocati/php-extension-installer:1 AS ext-installer
+FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-fpm-alpine AS base
 COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
 ARG EXTS="gd zip opcache mysqli"
@@ -9,7 +9,7 @@ COPY spip.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-spip.ini
 COPY spip.conf ${PHP_INI_DIR}/spip.conf
 RUN ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     mv ${PHP_INI_DIR}/spip.conf ${PHP_INI_DIR/php/php-fpm.d}/zz-docker.conf && \
-    pear config-set php_ini "$PHP_INI_DIR/php.ini" && \
     if [ "${XDEBUG}" != "0" ];then EXTS="xdebug-${XDEBUG} ${EXTS}"; fi && \
     install-php-extensions ${EXTS} && \
+    pear config-set php_ini "$PHP_INI_DIR/php.ini" && \
     true
