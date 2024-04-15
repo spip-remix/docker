@@ -27,7 +27,7 @@
   {
     "version": "8.0",
     "php": "8.0.30",
-    "xdebug": "3.3.1",
+    "xdebug": "3.3.2",
     "make": "4.3",
     "jq": "1.6",
     "tools": [
@@ -40,8 +40,8 @@
   },
   {
     "version": "8.1",
-    "php": "8.1.27",
-    "xdebug": "3.3.1",
+    "php": "8.1.28",
+    "xdebug": "3.3.2",
     "tools": [
       "dealerdirect/phpcodesniffer-composer-installer=^1.0",
       "friendsofphp/php-cs-fixer=^3.52",
@@ -52,7 +52,7 @@
   },
   {
     "version": "8.2",
-    "php": "8.2.17",
+    "php": "8.2.18",
     "exts": [
       "gd",
       "intl",
@@ -63,7 +63,7 @@
       "pdo_mysql",
       "pdo_pgsql"
     ],
-    "xdebug": "3.3.1",
+    "xdebug": "3.3.2",
     "tools": [
       "dealerdirect/phpcodesniffer-composer-installer=^1.0",
       "friendsofphp/php-cs-fixer=^3.52",
@@ -75,7 +75,7 @@
   {
     "latest": true,
     "version": "8.3",
-    "php": "8.3.4",
+    "php": "8.3.6",
     "exts": [
       "gd",
       "intl",
@@ -86,7 +86,7 @@
       "pdo_mysql",
       "pdo_pgsql"
     ],
-    "xdebug": "3.3.1",
+    "xdebug": "3.3.2",
     "tools": [
       "dealerdirect/phpcodesniffer-composer-installer=^1.0",
       "friendsofphp/php-cs-fixer=^3.52",
