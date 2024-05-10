@@ -21,7 +21,7 @@ if [ "$ROLE" == "cli" ] || [ "$ROLE" == "fpm" ]; then
 fi
 
 # Check official images against ours
-for version in 5.6 7.4 8.0 8.1 8.2 8.3;
+for version in 5.6 7.1 7.4 8.0 8.1 8.2 8.3;
 do
     SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
     DOCKER_IMAGE="php:${version}-${ROLE}"
@@ -39,7 +39,7 @@ do
         >&2 echo -e "${NC}Comparing with last SPIP (${SPIP_ROLE}) version in ${version} branch...${NC}"
         OUR_PATCH_VERSION=
         if docker pull ${SPIP_IMAGE} > /dev/null 2>&1; then
-            OUR_PATCH_VERSION=$(docker run --rm -it ${SPIP_IMAGE} php --version | grep -E "^PHP" | cut -d" " -f 2)
+            OUR_PATCH_VERSION=$(docker run --rm -it --entrypoint docker-php-entrypoint ${SPIP_IMAGE} --version | grep -E "^PHP" | cut -d" " -f2)
             if test "${PATCH_VERSION}" != "${OUR_PATCH_VERSION}"; then
                 >&2 echo -e "${YELLOW}${SPIP_IMAGE} to build${NC}"
             else

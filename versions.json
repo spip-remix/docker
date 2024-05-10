@@ -11,6 +11,21 @@
     ]
   },
   {
+    "version": "7.1",
+    "php": "7.1.33",
+    "composer": "2.2.23",
+    "xdebug": "2.9.8",
+    "make": "4.2",
+    "jq": "1.6",
+    "tools": [
+      "dealerdirect/phpcodesniffer-composer-installer=^1.0",
+      "friendsofphp/php-cs-fixer=^3.3",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpcompatibility/php-compatibility=^9.3",
+      "phpstan/phpstan=^1.4"
+    ]
+  },
+  {
     "version": "7.4",
     "php": "7.4.33",
     "xdebug": "3.1.6",
@@ -52,7 +67,7 @@
   },
   {
     "version": "8.2",
-    "php": "8.2.18",
+    "php": "8.2.19",
     "exts": [
       "gd",
       "intl",
@@ -75,7 +90,7 @@
   {
     "latest": true,
     "version": "8.3",
-    "php": "8.3.6",
+    "php": "8.3.7",
     "exts": [
       "gd",
       "intl",
