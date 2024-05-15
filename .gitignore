@@ -4,5 +4,5 @@
 /docker-compose.override.yml
 /.env
 /build.sh
-/apache-build.sh
-/fpm-build.sh
+/docker
+/makefiles

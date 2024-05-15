@@ -2,59 +2,10 @@
 
 ## Build
 
-### PHP CLI (a.k.a. spip/tools)
-
 ```bash
-jq -r '.[]|
-    "docker build"+
-    " -t spip/tools:"+.version+
-    " -t spip/tools:"+.php+
-    (if .latest then " -t spip/tools" else "" end)+
-    " --build-arg PHP="+.php+
-    " --build-arg XDEBUG="+.xdebug+
-    (if .composer then " --build-arg COMPOSER="+.composer else "" end)+
-    (if .make then " --build-arg MAKE="+.make else "" end)+
-    (if .jq then " --build-arg JQ="+.jq else "" end)+
-    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
-    " --build-arg TOOLS=\""+(.tools|join(" "))+"\" ."
-' versions.json > build.sh
-sh build.sh
-rm build.sh
-docker push --all-tags spip/tools
-```
-
-### apache+mod_php (a.k.a. spip/apache)
-
-```bash
-jq -r '.[]|
-    "docker build"+
-    " -t spip/apache:"+.version+
-    " -t spip/apache:"+.php+
-    (if .latest then " -t spip/apache" else "" end)+
-    " --build-arg PHP="+.php+
-    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
-    " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.apache ."
-' versions.json > apache-build.sh
-sh apache-build.sh
-rm apache-build.sh
-docker push --all-tags spip/apache
-```
-
-### PHP-FPM (a.k.a. spip/fpm)
-
-```bash
-jq -r '.[]|
-    "docker build"+
-    " -t spip/fpm:"+.version+
-    " -t spip/fpm:"+.php+
-    (if .latest then " -t spip/fpm" else "" end)+
-    " --build-arg PHP="+.php+
-    (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
-    " --build-arg XDEBUG="+.xdebug+" -f Dockerfile.fpm ."
-' versions.json > fpm-build.sh
-sh fpm-build.sh
-rm fpm-build.sh
-docker push --all-tags spip/fpm
+./test.sh
+./test.sh apache
+./test.sh fpm
 ```
 
 ## Usage
@@ -133,7 +84,7 @@ docker run \
 - src files hash(js turbo like)
 
 ```bash
-snyk container test holisticagency/friendsofsonar --file=Dockerfile --exclude-base-image-vulns
+snyk container test spip/tools --file=Dockerfile --exclude-base-image-vulns
 ```
 
 ### V3
