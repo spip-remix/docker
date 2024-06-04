@@ -86,6 +86,6 @@ jq -r '.[]|'"${TO_BUILD}"'|
 ' versions.json > build.sh
 
 sh build.sh
-#docker push --all-tags "spip/${SPIP_ROLE}"
+docker push --all-tags "spip/${SPIP_ROLE}"
 
 exit 0
