@@ -89,3 +89,18 @@ sh build.sh
 docker push --all-tags "spip/${SPIP_ROLE}"
 
 exit 0
+
+docker pull --all-tags --platform amd64 --quiet spip/tools &
+docker pull --all-tags --platform arm64 --quiet spip/tools &
+docker pull --all-tags --platform amd64 --quiet spip/apache &
+docker pull --all-tags --platform arm64 --quiet spip/apache &
+docker pull --all-tags --platform amd64 --quiet spip/fpm &
+docker pull --all-tags --platform arm64 --quiet spip/fpm &
+
+docker image list --filter "reference=spip/*" --format json | jq -s '
+map({image:.Repository,tag:.Tag})
+    |[
+        group_by(.image)[]
+        |{(.[0].image): [.[] | .tag]}
+    ]
+' > all.json

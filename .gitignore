@@ -6,3 +6,4 @@
 /build.sh
 /docker
 /makefiles
+/.envrc
