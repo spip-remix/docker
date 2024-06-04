@@ -8,10 +8,11 @@ COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install
 ARG MAKE=4.4
 ARG JQ=1.7
 ARG EXTS="gd zip opcache mysqli"
-ARG XDEBUG
+ARG XDEBUG=3.3.2
 ARG TOOLS
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_MEMORY_LIMIT=-1 \
+    COMPOSER_NO_INTERACTION=1 \
     PATH="/root/.composer/vendor/bin:${PATH}" \
     XDEBUG_MODE=off \
     EXTS=${EXTS}

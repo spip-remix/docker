@@ -33,11 +33,15 @@ if [ "$ROLE" == "cli" ] || [ "$ROLE" == "fpm" ]; then
     ROLE="${ROLE}-alpine"
 fi
 
-if [ "$ROLE" == "apache" ] || [ "$ROLE" == "fpm" ]; then
+if [ "$ROLE" == "apache" ] || [ "$ROLE" == "fpm-alpine" ]; then
     DOCKERFILE="\" -f Dockerfile.${ROLE}\"+"
 fi
 
 TO_BUILD=
+
+echo "Dockerfile:${DOCKERFILE}"
+echo "Role:${ROLE}"
+echo "SPIP Role:${SPIP_ROLE}"
 
 # Check official images against ours
 for version in 5.6 7.0 7.1 7.2 7.3 7.4 8.0 8.1 8.2 8.3 8.4;
@@ -68,6 +72,7 @@ TO_BUILD=$(jq -Rr '[.|split(" ")|.[]|".version==\""+.+"\""]|join(" or ")|"select
 
 jq -r '.[]|'"${TO_BUILD}"'|
     "docker build"+
+    " --platform linux/amd64,linux/arm64"+
     " -t spip/'${SPIP_ROLE}':"+.version+
     " -t spip/'${SPIP_ROLE}':"+.php+
     (if .latest then " -t spip/'${SPIP_ROLE}'" else "" end)+
@@ -81,6 +86,6 @@ jq -r '.[]|'"${TO_BUILD}"'|
 ' versions.json > build.sh
 
 sh build.sh
-docker push --all-tags "spip/${SPIP_ROLE}"
+#docker push --all-tags "spip/${SPIP_ROLE}"
 
 exit 0
