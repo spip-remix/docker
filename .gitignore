@@ -1,9 +1,7 @@
-/apps/
-/data/
-/build/
 /docker-compose.override.yml
 /.env
-/build.sh
+/build-*.sh
+/push-*.sh
 /docker
 /makefiles
 /.envrc

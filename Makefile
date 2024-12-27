@@ -1,14 +1,30 @@
-.PHONY: help clean phplint phpcompat audit outdated phpstan
+.PHONY: help clean lint audit outdated analyze refactor cs test
 
 ## —— 🐿️  The SpipRemix Makefile 🐿️  ——
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 clean: ## Clean build directory
-	@rm -Rf build
+	@rm -Rf build .phpunit.cache
 
-/root/.composer/vendor/bin/phpstan:
-	@echo "phpstan is not present on this version of friendsofsonar."
+/build/.composer/vendor/bin/parallel-lint:
+	@echo "parallel-lint is not present on this version of spip/tools. Try with a newer version (5.6+)."
+	@false
+
+/build/.composer/vendor/bin/phpstan:
+	@echo "phpstan is not present on this version of spip/tools. Try with a newer version (7.4+)."
+	@false
+
+/build/.composer/vendor/bin/rector:
+	@echo "rector is not present on this version of spip/tools. Try with a newer version (7.4+)."
+	@false
+
+/build/.composer/vendor/bin/ecs:
+	@echo "ecs is not present on this version of spip/tools. Try with a newer version (7.4+)."
+	@false
+
+/build/.composer/vendor/bin/phpunit:
+	@echo "phpunit is not present on this version of spip/tools. Try with a newer version (7.4+)."
 	@false
 
 composer.json:
@@ -20,57 +36,81 @@ composer.lock: composer.json
 	@echo "please run composer update --lock before anything else."
 	@false
 
+vendor/autoload.php: composer.json
+	@composer install --no-progress --prefer-install=auto
+
 phplint.lst:
 	@echo "fichier $@ manquant."
 	@false
 
-phpcs.xml:
+phpstan.neon.dist:
 	@echo "fichier $@ manquant."
 	@false
 
-phpstan.neon:
+phpunit.xml.dist:
 	@echo "fichier $@ manquant."
 	@false
 
-build/phplint.txt: phplint.lst
-	@test -d build || mkdir -p build
-	@parallel-lint --no-progress $$(cat phplint.lst) | tee $@
+rector.php:
+	@echo "fichier $@ manquant."
+	@false
 
-build/phpcompat.json: build/phplint.txt phpcs.xml
+ecs.php:
+	@echo "fichier $@ manquant."
+	@false
+
+build/phplint.json: vendor/autoload.php /build/.composer/vendor/bin/parallel-lint phplint.lst
 	@test -d build || mkdir -p build
-	@phpcs --report-json=$@.tmp -p || true
-	@jq '.files' < $@.tmp | jq -r -f /root/.jq/phpcompat.jq > $@
+	@echo "Looking for PHP syntax errors ..."
+	@parallel-lint --gitlab $$(cat phplint.lst) > $@
+	@echo $$(jq '.|length' $@)" error(s)."
+
+build/phpstan.json: vendor/autoload.php /build/.composer/vendor/bin/phpstan phpstan.neon.dist
+	@test -d build || mkdir -p build
+	@echo "Looking for bugs with phpstan ..."
+	@phpstan --memory-limit=-1 --error-format=gitlab > $@
+
+build/ecs.json: vendor/autoload.php /build/.composer/vendor/bin/ecs ecs.php
+	@test -d build || mkdir -p build
+	@echo "Checking coding standards ..."
+	@ecs check --output-format=gitlab > $@
+
+build/rector.json: vendor/autoload.php /build/.composer/vendor/bin/rector rector.php
+	@test -d build || mkdir -p build
+	@rector process --dry-run --output-format=gitlab > $@
+
+.phpunit.cache/corbertura/report.xml: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
+	@XDEBUG_MODE=coverage phpunit --colors
+
+build/gl-outdated.json: vendor/autoload.php
+	@test -d build || mkdir -p build
+	@composer outdated --direct --locked --strict --no-dev --format=json > $@.tmp || true
+	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/outdated.jq > $@
 	@rm $@.tmp
 
-build/phpstan.json: /root/.composer/vendor/bin/phpstan build/phplint.txt phpstan.neon
-	@test -d build || mkdir -p build
-	@phpstan --memory-limit=-1 --error-format=json > $@ || true
-	@echo $$(jq '.totals.errors + .totals.file_errors' < $@)" erreur(s)."
-
-build/outdated.json: composer.lock
-	@test -d build || mkdir -p build
-	@composer outdated --format=json > $@.tmp || true
-	@cat $@.tmp | jq -f /root/.jq/outdated.jq > $@
-	@rm $@.tmp
-
-build/audit.json: composer.lock
+build/gl-audit.json: vendor/autoload.php
 	@if ! composer help audit >/dev/null 2>&1; \
 	then \
 		echo "No audit capability. Try with a newer version (7.2+)."; \
 		false; \
 	fi
 	@test -d build || mkdir -p build
-	@composer audit --locked --no-dev --format=json > $@.tmp || true
-	@cat $@.tmp | jq -f /root/.jq/audit.jq > $@
+	@composer audit --direct --locked --strict --no-dev --format=json > $@.tmp || true
+	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/audit.jq > $@
 	@rm $@.tmp
 
-phplint: build/phplint.txt ## Find syntax errors
+## Test tools
+lint: build/phplint.json ## Find syntax errors
 
-phpcompat: build/phpcompat.json ## Check PHP Compatibility
+cs: build/ecs.json ## Check coding standards
 
-phpstan: build/phpstan.json ## Find bugs with phpstaan
+analyze: build/phpstan.json ## Find bugs with phpstan
+
+refactor: build/rector.json ## Find bugs with rector
+
+test: .phpunit.cache/corbertura/report.xml ## Run Unit Tests with coverage
 
 ## External vulnerabilities
-outdated: build/outdated.json  ## Outdated packages
+outdated: build/gl-outdated.json  ## Outdated packages
 
-audit: build/audit.json ## Vulnerabilities
+audit: build/gl-audit.json ## Vulnerabilities

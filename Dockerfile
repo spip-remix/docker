@@ -1,5 +1,5 @@
-ARG PHP
-ARG COMPOSER=2.7.6
+ARG PHP=8.4.2
+ARG COMPOSER=2.8.4
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-cli-alpine AS base
@@ -8,30 +8,35 @@ COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install
 ARG MAKE=4.4
 ARG JQ=1.7
 ARG EXTS="gd zip opcache mysqli"
-ARG XDEBUG=3.3.2
+ARG XDEBUG=3.4.0
 ARG TOOLS
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
-    COMPOSER_MEMORY_LIMIT=-1 \
-    COMPOSER_NO_INTERACTION=1 \
-    PATH="/root/.composer/vendor/bin:${PATH}" \
-    XDEBUG_MODE=off \
-    EXTS=${EXTS}
+ENV EXTS=${EXTS}
 
 COPY spip.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-spip.ini
-RUN apk --no-cache add make=~${MAKE} jq=~${JQ} unzip git && \
+RUN apk --no-cache add make=~${MAKE} jq=~${JQ} git && \
     ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     if [ "${XDEBUG}" != "0" ];then EXTS="xdebug-${XDEBUG} ${EXTS}"; fi && \
     install-php-extensions ${EXTS} && \
     pear config-set php_ini "$PHP_INI_DIR/php.ini" && \
-    mkdir -p /root/.composer && \
-    curl -s -o /root/.composer/keys.dev.pub https://composer.github.io/snapshots.pub && \
-    curl -s -o /root/.composer/keys.tags.pub https://composer.github.io/releases.pub && \
-    composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true && \
-    composer global require --no-interaction --no-progress ${TOOLS} && \
-    composer clear-cache
+    adduser --home /build --shell /bin/ash --disabled-password ciuser ci && \
+    mkdir -p /build/.composer && \
+    curl -s -o /build/.composer/keys.dev.pub https://composer.github.io/snapshots.pub && \
+    curl -s -o /build/.composer/keys.tags.pub https://composer.github.io/releases.pub && \
+    chown -R 1000:1000 /build/.composer
 COPY Makefile /Makefile
-COPY .jq /root/.jq
+COPY .jq /usr/local/lib/jq
 ENTRYPOINT [ "make", "-f", "/Makefile"]
 CMD [ "help" ]
 
-WORKDIR /build
+FROM base AS ci
+USER ciuser
+ENV COMPOSER_MEMORY_LIMIT=-1 \
+    COMPOSER_NO_INTERACTION=1 \
+    COMPOSER_FUND=0 \
+    COMPOSER_AUDIT_ABANDONED=report \
+    XDEBUG_MODE=off \
+    PATH="/build/.composer/vendor/bin:${PATH}"
+RUN composer global config repositories.spip composer https://get.spip.net/composer && \
+    composer global require ${TOOLS} && \
+    composer clear-cache
+WORKDIR /build/app

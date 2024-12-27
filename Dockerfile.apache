@@ -1,4 +1,4 @@
-ARG PHP
+ARG PHP=8.4.2
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-apache AS base
 COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
@@ -10,5 +10,4 @@ RUN ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     a2enmod rewrite && \
     if [ "${XDEBUG}" != "0" ];then EXTS="xdebug-${XDEBUG} ${EXTS}"; fi && \
     install-php-extensions ${EXTS} && \
-    pear config-set php_ini "$PHP_INI_DIR/php.ini" && \
-    true
+    pear config-set php_ini "$PHP_INI_DIR/php.ini"
