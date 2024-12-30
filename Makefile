@@ -1,4 +1,4 @@
-.PHONY: help clean lint audit outdated analyze refactor cs test
+.PHONY: help clean lint audit outdated analyze refactor cs test test-coverage
 
 ## —— 🐿️  The SpipRemix Makefile 🐿️  ——
 help: ## Outputs this help screen
@@ -79,6 +79,10 @@ build/rector.json: vendor/autoload.php /build/.composer/vendor/bin/rector rector
 	@test -d build || mkdir -p build
 	@rector process --dry-run --output-format=gitlab > $@
 
+build/test: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
+	@test -d build || mkdir -p build
+	@phpunit --colors --no-coverage
+
 .phpunit.cache/corbertura/report.xml: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
 	@XDEBUG_MODE=coverage phpunit --colors
 
@@ -108,7 +112,9 @@ analyze: build/phpstan.json ## Find bugs with phpstan
 
 refactor: build/rector.json ## Find bugs with rector
 
-test: .phpunit.cache/corbertura/report.xml ## Run Unit Tests with coverage
+test-coverage: .phpunit.cache/corbertura/report.xml ## Run Unit Tests with coverage
+
+test: build/test ## Run Unit Tests without coverage
 
 ## External vulnerabilities
 outdated: build/gl-outdated.json  ## Outdated packages
