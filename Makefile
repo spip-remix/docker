@@ -88,7 +88,7 @@ build/test: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.
 
 build/gl-outdated.json: vendor/autoload.php
 	@test -d build || mkdir -p build
-	@composer outdated --direct --locked --strict --no-dev --format=json > $@.tmp || true
+	@composer outdated --locked --direct --strict --format=json > $@.tmp || true
 	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/outdated.jq > $@
 	@rm $@.tmp
 
@@ -99,7 +99,7 @@ build/gl-audit.json: vendor/autoload.php
 		false; \
 	fi
 	@test -d build || mkdir -p build
-	@composer audit --direct --locked --strict --no-dev --format=json > $@.tmp || true
+	@composer audit --locked --no-dev --format=json > $@.tmp || true
 	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/audit.jq > $@
 	@rm $@.tmp
 

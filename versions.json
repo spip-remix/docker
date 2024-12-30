@@ -26,6 +26,21 @@
     ]
   },
   {
+    "version": "8.0",
+    "php": "8.0.30",
+    "xdebug": "3.4.0",
+    "make": "4.3",
+    "jq": "1.6",
+    "tools": [
+      "friendsofphp/php-cs-fixer=^3.52",
+      "php-parallel-lint/php-parallel-lint=^1.4",
+      "phpstan/phpstan=^1.12",
+      "phpunit/phpunit=^9.6",
+      "rector/rector=^1.2",
+      "symplify/easy-coding-standard=^12.5"
+    ]
+  },
+  {
     "version": "8.1",
     "php": "8.1.31",
     "xdebug": "3.4.0",

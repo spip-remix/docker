@@ -23,12 +23,8 @@ RUN apk --no-cache add make=~${MAKE} jq=~${JQ} git && \
     curl -s -o /build/.composer/keys.dev.pub https://composer.github.io/snapshots.pub && \
     curl -s -o /build/.composer/keys.tags.pub https://composer.github.io/releases.pub && \
     chown -R 1000:1000 /build/.composer
-COPY Makefile /Makefile
-COPY .jq /usr/local/lib/jq
-ENTRYPOINT [ "make", "-f", "/Makefile"]
-CMD [ "help" ]
 
-FROM base AS ci
+FROM base AS tools
 USER ciuser
 ENV COMPOSER_MEMORY_LIMIT=-1 \
     COMPOSER_NO_INTERACTION=1 \
@@ -40,3 +36,9 @@ RUN composer global config repositories.spip composer https://get.spip.net/compo
     composer global require ${TOOLS} && \
     composer clear-cache
 WORKDIR /build/app
+
+FROM tools AS ci
+COPY Makefile /Makefile
+COPY .jq /usr/local/lib/jq
+ENTRYPOINT [ "make", "-f", "/Makefile"]
+CMD [ "help" ]

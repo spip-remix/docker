@@ -1,3 +1,5 @@
-'[.installed[]|{
-    
-}]'
+[.locked[]|{
+    name,
+    version,
+    latest
+}]
