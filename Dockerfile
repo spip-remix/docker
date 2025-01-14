@@ -22,7 +22,9 @@ RUN apk --no-cache add make=~${MAKE} jq=~${JQ} git && \
     mkdir -p /build/.composer && \
     curl -s -o /build/.composer/keys.dev.pub https://composer.github.io/snapshots.pub && \
     curl -s -o /build/.composer/keys.tags.pub https://composer.github.io/releases.pub && \
-    chown -R 1000:1000 /build/.composer
+    chown -R 1000:1000 /build/.composer && \
+    touch /tmp/xdebug.log && \
+    chown 1000:1000 /tmp/xdebug.log
 
 FROM base AS tools
 USER ciuser
