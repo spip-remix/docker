@@ -13,6 +13,8 @@
 Locally:
 
 ```bash
+docker run --rm -v $(pwd):/build/app spip/tools:<version>
+# Display the commands list
 docker run --rm -v $(pwd):/build/app spip/tools:<version> <command>
 ```
 

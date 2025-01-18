@@ -32,15 +32,17 @@ ENV COMPOSER_MEMORY_LIMIT=-1 \
     COMPOSER_NO_INTERACTION=1 \
     COMPOSER_FUND=0 \
     COMPOSER_AUDIT_ABANDONED=report \
+    COMPOSER_ROOT_VERSION=1.0.0 \
     XDEBUG_MODE=off \
     PATH="/build/.composer/vendor/bin:${PATH}"
 RUN composer global config repositories.spip composer https://get.spip.net/composer && \
     composer global require ${TOOLS} && \
     composer clear-cache
 WORKDIR /build/app
+VOLUME [ "/build/.composer/cache" ]
 
 FROM tools AS ci
 COPY Makefile /Makefile
 COPY .jq /usr/local/lib/jq
-ENTRYPOINT [ "make", "-f", "/Makefile"]
+ENTRYPOINT [ "make", "-f", "/Makefile" ]
 CMD [ "help" ]
