@@ -8,7 +8,7 @@ COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install
 ARG MAKE=4.4
 ARG JQ=1.7
 ARG EXTS="gd zip opcache mysqli"
-ARG XDEBUG=3.4.0
+ARG XDEBUG=3.4.1
 ARG TOOLS
 ENV EXTS=${EXTS}
 
