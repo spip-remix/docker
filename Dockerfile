@@ -1,5 +1,5 @@
-ARG PHP=8.4.2
-ARG COMPOSER=2.8.4
+ARG PHP=8.4.6
+ARG COMPOSER=2.8.8
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-cli-alpine AS base
@@ -8,7 +8,7 @@ COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install
 ARG MAKE=4.4
 ARG JQ=1.7
 ARG EXTS="gd zip opcache mysqli"
-ARG XDEBUG=3.4.1
+ARG XDEBUG=3.4.2
 ARG TOOLS
 ENV EXTS=${EXTS}
 
