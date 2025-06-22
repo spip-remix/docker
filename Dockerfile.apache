@@ -8,6 +8,6 @@ ARG XDEBUG
 COPY spip.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-spip.ini
 RUN ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     a2enmod rewrite && \
-    if [ "${XDEBUG}" != "0" ];then EXTS="xdebug-${XDEBUG} ${EXTS}"; fi && \
+    if [ "${XDEBUG}" != "0" ];then EXTS="${EXTS} xdebug-${XDEBUG}"; fi && \
     install-php-extensions ${EXTS} && \
     pear config-set php_ini "$PHP_INI_DIR/php.ini"

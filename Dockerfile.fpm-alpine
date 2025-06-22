@@ -9,6 +9,6 @@ COPY spip.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-spip.ini
 COPY spip.conf ${PHP_INI_DIR}/spip.conf
 RUN ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     mv ${PHP_INI_DIR}/spip.conf ${PHP_INI_DIR/php/php-fpm.d}/zz-docker.conf && \
-    if [ "${XDEBUG}" != "0" ];then EXTS="xdebug-${XDEBUG} ${EXTS}"; fi && \
+    if [ "${XDEBUG}" != "0" ];then EXTS="${EXTS} xdebug-${XDEBUG}"; fi && \
     install-php-extensions ${EXTS} && \
     pear config-set php_ini "$PHP_INI_DIR/php.ini"
