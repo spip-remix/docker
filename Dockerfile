@@ -1,5 +1,5 @@
-ARG PHP=8.4.6
-ARG COMPOSER=2.8.9
+ARG PHP=8.4.12
+ARG COMPOSER=2.8.11
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-cli-alpine AS base
