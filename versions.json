@@ -44,6 +44,7 @@
     "version": "8.1",
     "php": "8.1.33",
     "xdebug": "3.4.5",
+    "jq": "1.7",
     "tools": [
       "friendsofphp/php-cs-fixer=^3.52",
       "php-parallel-lint/php-parallel-lint=^1.4",
@@ -78,7 +79,7 @@
   },
   {
     "version": "8.3",
-    "php": "8.3.25",
+    "php": "8.3.26",
     "xdebug": "3.4.5",
     "exts": [
       "gd",
@@ -102,7 +103,7 @@
   {
     "latest": true,
     "version": "8.4",
-    "php": "8.4.12",
+    "php": "8.4.13",
     "xdebug": "3.4.5",
     "exts": [
       "gd",
@@ -124,8 +125,8 @@
     ]
   },
   {
-    "version": "8.5.0beta2",
-    "php": "8.5.0beta2",
+    "version": "8.5.0RC1",
+    "php": "8.5.0RC1",
     "xdebug": "0",
     "exts": [
       "gd",

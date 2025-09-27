@@ -52,7 +52,7 @@ echo "SPIP Role:${SPIP_ROLE}"
 
 if [ ${FORCE} -eq 0 ]; then
     # Check official images against ours
-    for version in 8.1 8.2 8.3 8.4 8.5.0beta2;
+    for version in 8.1 8.2 8.3 8.4 8.5.0RC1;
     do
         SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
         DOCKER_IMAGE="php:${version}-${ROLE}"
