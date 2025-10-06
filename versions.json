@@ -57,7 +57,7 @@
   {
     "version": "8.2",
     "php": "8.2.29",
-    "xdebug": "3.4.5",
+    "xdebug": "3.4.6",
     "exts": [
       "gd",
       "intl",
@@ -69,18 +69,18 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
+      "friendsofphp/php-cs-fixer=^3.88",
       "php-parallel-lint/php-parallel-lint=^1.4",
-      "phpstan/phpstan=^2.1",
+      "phpstan/phpstan=^2.2",
       "phpunit/phpunit=^11.5",
-      "rector/rector=^2.0",
+      "rector/rector=^2.2",
       "spip-league/easy-coding-standard=^1.1"
     ]
   },
   {
     "version": "8.3",
     "php": "8.3.26",
-    "xdebug": "3.4.5",
+    "xdebug": "3.4.6",
     "exts": [
       "gd",
       "intl",
@@ -92,11 +92,11 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
+      "friendsofphp/php-cs-fixer=^3.88",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
-      "rector/rector=^2.0",
+      "rector/rector=^2.2",
       "spip-league/easy-coding-standard=^1.1"
     ]
   },
@@ -104,7 +104,7 @@
     "latest": true,
     "version": "8.4",
     "php": "8.4.13",
-    "xdebug": "3.4.5",
+    "xdebug": "3.4.6",
     "exts": [
       "gd",
       "intl",
@@ -116,18 +116,18 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
+      "friendsofphp/php-cs-fixer=^3.88",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
-      "rector/rector=^2.0",
+      "rector/rector=^2.2",
       "spip-league/easy-coding-standard=^1.1"
     ]
   },
   {
     "version": "8.5.0RC1",
     "php": "8.5.0RC1",
-    "xdebug": "0",
+    "xdebug": "3.4.6",
     "exts": [
       "gd",
       "intl",
@@ -139,11 +139,11 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
+      "friendsofphp/php-cs-fixer=^3.88",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
-      "rector/rector=^2.0",
+      "rector/rector=^2.2",
       "spip-league/easy-coding-standard=^1.1"
     ]
   }
