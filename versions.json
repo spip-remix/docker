@@ -71,7 +71,7 @@
     "tools": [
       "friendsofphp/php-cs-fixer=^3.88",
       "php-parallel-lint/php-parallel-lint=^1.4",
-      "phpstan/phpstan=^2.2",
+      "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
       "rector/rector=^2.2",
       "spip-league/easy-coding-standard=^1.1"
@@ -125,8 +125,8 @@
     ]
   },
   {
-    "version": "8.5.0RC4",
-    "php": "8.5.0RC4",
+    "version": "8.5.0RC5",
+    "php": "8.5.0RC5",
     "xdebug": "0",
     "exts": [
       "gd",
