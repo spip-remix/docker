@@ -43,10 +43,10 @@
   {
     "version": "8.1",
     "php": "8.1.33",
-    "xdebug": "3.4.5",
+    "xdebug": "3.4.7",
     "jq": "1.7",
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
+      "friendsofphp/php-cs-fixer=^3.90",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^1.12",
       "phpunit/phpunit=^10.5",
@@ -79,7 +79,7 @@
   },
   {
     "version": "8.3",
-    "php": "8.3.27",
+    "php": "8.3.28",
     "xdebug": "3.4.7",
     "exts": [
       "gd",
@@ -92,7 +92,7 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.88",
+      "friendsofphp/php-cs-fixer=^3.90",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
@@ -103,7 +103,7 @@
   {
     "latest": true,
     "version": "8.4",
-    "php": "8.4.14",
+    "php": "8.4.15",
     "xdebug": "3.4.7",
     "exts": [
       "gd",
@@ -116,7 +116,7 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.88",
+      "friendsofphp/php-cs-fixer=^3.90",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
@@ -125,8 +125,8 @@
     ]
   },
   {
-    "version": "8.5.0RC5",
-    "php": "8.5.0RC5",
+    "version": "8.5",
+    "php": "8.5.0",
     "xdebug": "0",
     "exts": [
       "gd",
@@ -139,7 +139,7 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.88",
+      "friendsofphp/php-cs-fixer=^3.90",
       "php-parallel-lint/php-parallel-lint=^1.4",
       "phpstan/phpstan=^2.1",
       "phpunit/phpunit=^11.5",
