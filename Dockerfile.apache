@@ -1,4 +1,4 @@
-ARG PHP=8.4.15
+ARG PHP=8.5.1
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-apache AS base
 COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
