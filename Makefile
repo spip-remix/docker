@@ -68,7 +68,7 @@ build/phplint.json: vendor/autoload.php /build/.composer/vendor/bin/parallel-lin
 build/phpstan.json: vendor/autoload.php /build/.composer/vendor/bin/phpstan phpstan.neon.dist
 	@test -d build || mkdir -p build
 	@echo "Looking for bugs with phpstan ..."
-	@phpstan --memory-limit=-1 --error-format=gitlab > $@
+	@phpstan --memory-limit=-1 --no-progress --error-format=gitlab > $@
 
 build/ecs.json: vendor/autoload.php /build/.composer/vendor/bin/ecs ecs.php
 	@test -d build || mkdir -p build

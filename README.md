@@ -10,12 +10,27 @@
 
 ## Usage
 
+See [Versions](https://hub.docker.com/r/spip/tools/tags)
+
 Locally:
 
 ```bash
-docker run --rm -v $(pwd):/build/app spip/tools:<version>
-# Display the commands list
-docker run --rm -v $(pwd):/build/app spip/tools:<version> <command>
+docker run --rm -v $(pwd):/build/app spip/tools:<version> # Display the commands list
+```
+
+Example `docker run --rm -v $(pwd):/build/app spip/tools:8.2`:
+
+![Help display](./docs/help.png)
+
+```bash
+docker run --rm -v $(pwd):/build/app spip/tools:<version> <[command ...]>
+```
+
+Example `docker run --rm -v $(pwd):/build/app spip/tools:8.5 clean cs`:
+
+```txt
+Checking coding standards ...
+make: *** [/Makefile:76: build/ecs.json] Error 2
 ```
 
 in a `.gitlab-ci.yml`:
@@ -59,12 +74,13 @@ docker run \
 ### V2
 
 - `phplint.exclude.lst` optional
-  - parallel-lint --exclude src/templates --exclude tests/fixtures src tests
-  - parallel-lint <--exclude "$(cat phplint.exclude.lst)"> $(cat phplint.lst)
+  - `parallel-lint --exclude src/templates --exclude tests/fixtures src tests`
+  - `parallel-lint --exclude "$(cat phplint.exclude.lst)"> $(cat phplint.lst)`
 - include /makefiles/*.make
 - deptrac
 - template config files + check command
 - src files hash(js turbo like)
+- php/pie
 
 ### V3
 
