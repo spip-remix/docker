@@ -102,7 +102,7 @@ jq -r '.[]|'"${TO_BUILD}"'|
 ' versions.json > push-${ROLE}.sh
 
 sh "build-${ROLE}.sh"
-# sh "push-${ROLE}.sh"
+sh "push-${ROLE}.sh"
 
 exit 0
 
