@@ -1,10 +1,12 @@
-ARG PHP=8.5.5
+ARG PHP=8.5.6
 ARG COMPOSER=2.9.7
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
+FROM ghcr.io/php/pie:bin AS pie
 FROM php:${PHP}-cli-alpine AS base
 COPY --from=composer /composer /usr/local/bin/composer
 COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
+COPY --from=pie /pie /usr/local/bin/pie
 ARG MAKE=4.4
 ARG JQ=1.8
 ARG EXTS="gd zip opcache mysqli"
