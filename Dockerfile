@@ -1,5 +1,5 @@
-ARG PHP=8.5.6
-ARG COMPOSER=2.9.7
+ARG PHP=8.5.7
+ARG COMPOSER=2.10.1
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM ghcr.io/php/pie:bin AS pie
