@@ -1,4 +1,4 @@
-.PHONY: help clean lint audit outdated analyze refactor cs test test-coverage
+.PHONY: help clean lint audit outdated analyze refactor cs cs-fixer test test-coverage
 
 ## —— 🐿️  The SpipRemix Makefile 🐿️  ——
 help: ## Outputs this help screen
@@ -21,6 +21,10 @@ clean: ## Clean build directory
 
 /build/.composer/vendor/bin/ecs:
 	@echo "ecs is not present on this version of spip/tools. Try with a newer version (7.4+)."
+	@false
+
+/build/.composer/vendor/bin/php-cs-fixer:
+	@echo "php-cs-fixer is not present on this version of spip/tools. Try with a newer version (7.4+)."
 	@false
 
 /build/.composer/vendor/bin/phpunit:
@@ -59,6 +63,10 @@ ecs.php:
 	@echo "fichier $@ manquant."
 	@false
 
+.php-cs-fixer.dist.php:
+	@echo "fichier $@ manquant."
+	@false
+
 build/phplint.json: vendor/autoload.php /build/.composer/vendor/bin/parallel-lint phplint.lst
 	@test -d build || mkdir -p build
 	@echo "Looking for PHP syntax errors ..."
@@ -68,16 +76,21 @@ build/phplint.json: vendor/autoload.php /build/.composer/vendor/bin/parallel-lin
 build/phpstan.json: vendor/autoload.php /build/.composer/vendor/bin/phpstan phpstan.neon.dist
 	@test -d build || mkdir -p build
 	@echo "Looking for bugs with phpstan ..."
-	@phpstan --memory-limit=-1 --no-progress --error-format=gitlab > $@
+	@phpstan --memory-limit=1G --no-progress --error-format=gitlab > $@
 
 build/ecs.json: vendor/autoload.php /build/.composer/vendor/bin/ecs ecs.php
 	@test -d build || mkdir -p build
 	@echo "Checking coding standards ..."
-	@ecs check --output-format=gitlab > $@
+	@ecs check --no-progress-bar --output-format=gitlab > $@
+
+build/php-cs-fixer.json: vendor/autoload.php /build/.composer/vendor/bin/php-cs-fixer .php-cs-fixer.dist.php
+	@test -d build || mkdir -p build
+	@echo "Checking coding standards ..."
+	@php-cs-fixer check --show-progress=none --format=gitlab > $@
 
 build/rector.json: vendor/autoload.php /build/.composer/vendor/bin/rector rector.php
 	@test -d build || mkdir -p build
-	@rector process --dry-run --output-format=gitlab > $@
+	@rector process --no-progress-bar --dry-run --output-format=gitlab > $@
 
 build/test: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
 	@test -d build || mkdir -p build
@@ -106,7 +119,9 @@ build/gl-audit.json: vendor/autoload.php
 ## Test tools
 lint: build/phplint.json ## Find syntax errors
 
-cs: build/ecs.json ## Check coding standards
+cs: build/ecs.json ## Check coding standards (with ecs)
+
+cs-fixer: build/php-cs-fixer.json ## Check coding standards (with php-cs-fixer)
 
 analyze: build/phpstan.json ## Find bugs with phpstan
 
