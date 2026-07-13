@@ -1,5 +1,5 @@
-ARG PHP=8.5.7
-ARG COMPOSER=2.10.1
+ARG PHP=8.5.8
+ARG COMPOSER=2.10.2
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM ghcr.io/php/pie:bin AS pie
@@ -19,7 +19,7 @@ RUN apk --no-cache add make=~${MAKE} jq=~${JQ} git && \
     ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     if [ "${XDEBUG}" != "0" ];then EXTS="${EXTS} xdebug-${XDEBUG}"; fi && \
     install-php-extensions ${EXTS} && \
-    pear config-set php_ini "$PHP_INI_DIR/php.ini" && \
+    if [ "$(which pear)" ]; then pear config-set php_ini "$PHP_INI_DIR/php.ini"; fi && \
     adduser --home /build --shell /bin/ash --disabled-password ciuser ci && \
     mkdir -p /build/.composer && \
     curl -s -o /build/.composer/keys.dev.pub https://composer.github.io/snapshots.pub && \
