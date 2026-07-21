@@ -130,8 +130,8 @@
     ]
   },
   {
-    "version": "8.6.0alpha1",
-    "php": "8.6.0alpha1",
+    "version": "8.6.0alpha2",
+    "php": "8.6.0alpha2",
     "xdebug": "0",
     "exts": [
       "gd",

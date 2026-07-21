@@ -18,7 +18,7 @@ OPTION="${1}"
 if [ "${OPTION}" != "" ]; then
     echo "${OPTION}"
     FORCE=1
-    TO_BUILD="7.4 8.4 8.5 8.6.0alpha1"
+    TO_BUILD="7.4 8.4 8.5 8.6.0alpha2"
 fi
 
 ENTRYPOINT=
@@ -52,7 +52,7 @@ echo "SPIP Role:${SPIP_ROLE}"
 
 if [ ${FORCE} -eq 0 ]; then
     # Check official images against ours
-    for version in 7.4 8.4 8.5 8.6.0alpha1;
+    for version in 7.4 8.4 8.5 8.6.0alpha2;
     do
         SPIP_IMAGE="spip/${SPIP_ROLE}:${version}"
         DOCKER_IMAGE="php:${version}-${ROLE}"
