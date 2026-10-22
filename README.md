@@ -86,3 +86,25 @@ docker run \
 
 - "spip-cli"
 - "checkout"
+
+### Notes
+
+Since PHP8.6, opcache is always present, pear is no more present
+
+### Zip
+
+PHP7.4
+
+- Zip version => 1.15.6
+- Libzip headers version => 1.8.0
+
+PHP8.5
+
+- Zip version => 1.22.8
+- Libzip version => 1.11.4
+- BZIP2 compression => Yes
+- XZ compression => Yes
+- ZSTD compression => Yes
+- AES-128 encryption => Yes
+- AES-192 encryption => Yes
+- AES-256 encryption => Yes

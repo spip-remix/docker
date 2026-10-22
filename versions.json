@@ -50,7 +50,7 @@
   },
   {
     "version": "8.2",
-    "php": "8.2.32",
+    "php": "8.2.35",
     "xdebug": "3.5.3",
     "exts": [
       "gd",
@@ -70,8 +70,8 @@
   },
   {
     "version": "8.3",
-    "php": "8.3.32",
-    "xdebug": "3.5.1",
+    "php": "8.3.36",
+    "xdebug": "3.5.3",
     "exts": [
       "gd",
       "intl",
@@ -90,7 +90,7 @@
   },
   {
     "version": "8.4",
-    "php": "8.4.23",
+    "php": "8.4.27",
     "xdebug": "3.5.3",
     "exts": [
       "gd",
@@ -111,7 +111,7 @@
   {
     "latest": true,
     "version": "8.5",
-    "php": "8.5.8",
+    "php": "8.5.12",
     "xdebug": "3.5.3",
     "exts": [
       "gd",
@@ -130,8 +130,8 @@
     ]
   },
   {
-    "version": "8.6.0alpha2",
-    "php": "8.6.0alpha2",
+    "version": "8.6.0RC3",
+    "php": "8.6.0RC3",
     "xdebug": "0",
     "exts": [
       "gd",

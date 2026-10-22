@@ -1,4 +1,4 @@
-ARG PHP=8.5.8
+ARG PHP=8.5.12
 FROM mlocati/php-extension-installer:2 AS ext-installer
 FROM php:${PHP}-fpm-alpine AS base
 COPY --from=ext-installer /usr/bin/install-php-extensions /usr/local/bin/install-php-extensions
@@ -11,4 +11,4 @@ RUN ln -s "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini" && \
     mv ${PHP_INI_DIR}/spip.conf ${PHP_INI_DIR/php/php-fpm.d}/zz-docker.conf && \
     if [ "${XDEBUG}" != "0" ];then EXTS="${EXTS} xdebug-${XDEBUG}"; fi && \
     install-php-extensions ${EXTS} && \
-    pear config-set php_ini "$PHP_INI_DIR/php.ini"
+    if [ "$(which pear)" ]; then pear config-set php_ini "$PHP_INI_DIR/php.ini"; fi

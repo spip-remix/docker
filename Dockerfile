@@ -1,7 +1,8 @@
-ARG PHP=8.5.8
-ARG COMPOSER=2.10.2
+ARG PHP=8.5.12
+ARG COMPOSER=2.10.3
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
+# pie for php8.1+
 FROM ghcr.io/php/pie:bin AS pie
 FROM php:${PHP}-cli-alpine AS base
 COPY --from=composer /composer /usr/local/bin/composer
