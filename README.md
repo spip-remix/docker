@@ -33,6 +33,14 @@ Checking coding standards ...
 make: *** [/Makefile:76: build/ecs.json] Error 2
 ```
 
+Local Shortcut
+
+`alias spip-tools='docker run --rm -v $(pwd):/build/app spip/tools'`
+
+```bash
+spip-tools clean test
+```
+
 in a `.gitlab-ci.yml`:
 
 ```yml
