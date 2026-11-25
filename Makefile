@@ -30,6 +30,12 @@ composer.lock: composer.json
 vendor/autoload.php: composer.json
 	@composer install --no-progress --prefer-install=auto
 
+# "composer audit/outdated --locked" need composer.lock. Libraries do not commit it, and a CI cache
+# may restore vendor/ without it (vendor/autoload.php is then up to date): install to write it.
+.PHONY: locked
+locked: vendor/autoload.php
+	@test -f composer.lock || composer install --no-progress --prefer-install=auto
+
 phpstan.neon.dist:
 	@echo "fichier $@ manquant."
 	@false
@@ -90,13 +96,13 @@ build/cobertura.xml: vendor/bin/phpunit phpunit.xml.dist
 	@test -d build || mkdir -p build
 	@php -d pcov.enabled=1 vendor/bin/phpunit --colors --coverage-text --coverage-cobertura $@
 
-build/gl-outdated.json: vendor/autoload.php
+build/gl-outdated.json: locked
 	@test -d build || mkdir -p build
 	@composer outdated --locked --direct --strict --format=json > $@.tmp || true
 	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/outdated.jq > $@
 	@rm $@.tmp
 
-build/gl-audit.json: vendor/autoload.php
+build/gl-audit.json: locked
 	@if ! composer help audit >/dev/null 2>&1; \
 	then \
 		echo "No audit capability. Try with a newer version (7.2+)."; \
