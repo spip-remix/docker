@@ -12,6 +12,19 @@
 
 See [Versions](https://hub.docker.com/r/spip/tools/tags)
 
+`spip/tools` provides PHP, its extensions, Composer, `make`, `jq` and `parallel-lint`.
+The other QA tools (phpstan, ecs, rector, phpunit, php-cs-fixer) **come from the project**:
+the Makefile runs `composer install`, then uses `vendor/bin/<tool>`, so the versions are the ones
+of the project (add the tools, or `spip-league/qa-tools`, to its `require-dev`).
+
+- `lint` lints the files listed in `phplint.lst`, or the whole project (except `vendor`, `lang`, `node_modules`, `build`)
+  if there is a `composer.json`. `ecs.php` and `rector.php` are not linted, as these tools may run on a newer PHP.
+- `test-coverage` uses `pcov` (not available on PHP 8.6 yet). `pcov` is disabled by default (`pcov.enabled=0`),
+  the Makefile enables it only for the coverage.
+- `audit` fails when Composer reports a vulnerability.
+- Reports are written in `build/`: `phplint.json`, `phpstan.json` (GitLab code quality), `junit.xml`, `cobertura.xml`,
+  `gl-audit.json`, `gl-outdated.json`. `ecs` and `rector` only output to the console (no GitLab format anymore).
+
 Locally:
 
 ```bash
@@ -26,11 +39,13 @@ Example `docker run --rm -v $(pwd):/build/app spip/tools:8.2`:
 docker run --rm -v $(pwd):/build/app spip/tools:<version> <[command ...]>
 ```
 
-Example `docker run --rm -v $(pwd):/build/app spip/tools:8.5 clean cs`:
+Example `docker run --rm -v $(pwd):/build/app spip/tools:8.5 clean lint analyze`:
 
 ```txt
-Checking coding standards ...
-make: *** [/Makefile:76: build/ecs.json] Error 2
+Looking for PHP syntax errors ...
+0 error(s).
+Looking for bugs with phpstan ...
+Note: Using configuration file /build/app/phpstan.neon.dist.
 ```
 
 Local Shortcut
@@ -88,7 +103,6 @@ docker run \
 - deptrac
 - template config files + check command
 - src files hash(js turbo like)
-- php/pie
 
 ### V3
 
@@ -100,6 +114,9 @@ docker run \
 Since PHP8.6, opcache is always present, pear is no more present.
 
 The official `php:8.6-cli-alpine` image is built with ZTS (`PHP_ZTS=1`), unlike PHP 8.5 and earlier (NTS).
+
+PECL extensions of the tools image (`pcov`) are installed with [PIE](https://github.com/php/pie) (PHP 8.1+),
+with `install-php-extensions` for older PHP versions. `xdebug` is only provided in the web images (apache, fpm).
 
 ### Zip
 

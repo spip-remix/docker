@@ -7,29 +7,14 @@ help: ## Outputs this help screen
 clean: ## Clean build directory
 	@rm -Rf build .phpunit.cache
 
+# parallel-lint is the only global tool: it does not need a "composer install" of the project.
 /build/.composer/vendor/bin/parallel-lint:
 	@echo "parallel-lint is not present on this version of spip/tools. Try with a newer version (5.6+)."
 	@false
 
-/build/.composer/vendor/bin/phpstan:
-	@echo "phpstan is not present on this version of spip/tools. Try with a newer version (7.4+)."
-	@false
-
-/build/.composer/vendor/bin/rector:
-	@echo "rector is not present on this version of spip/tools. Try with a newer version (7.4+)."
-	@false
-
-/build/.composer/vendor/bin/ecs:
-	@echo "ecs is not present on this version of spip/tools. Try with a newer version (7.4+)."
-	@false
-
-/build/.composer/vendor/bin/php-cs-fixer:
-	@echo "php-cs-fixer is not present on this version of spip/tools. Try with a newer version (7.4+)."
-	@false
-
-/build/.composer/vendor/bin/phpunit:
-	@echo "phpunit is not present on this version of spip/tools. Try with a newer version (7.4+)."
-	@false
+# Other QA tools come from the project: add them (or spip-league/qa-tools) to its require-dev.
+vendor/bin/phpstan vendor/bin/rector vendor/bin/ecs vendor/bin/php-cs-fixer vendor/bin/phpunit: vendor/autoload.php
+	@test -x $@ || { echo "$@ is missing: add it (or spip-league/qa-tools) to the require-dev of the project."; false; }
 
 composer.json:
 	@echo "fichier $@ manquant."
@@ -42,10 +27,6 @@ composer.lock: composer.json
 
 vendor/autoload.php: composer.json
 	@composer install --no-progress --prefer-install=auto
-
-phplint.lst:
-	@echo "fichier $@ manquant."
-	@false
 
 phpstan.neon.dist:
 	@echo "fichier $@ manquant."
@@ -67,37 +48,45 @@ ecs.php:
 	@echo "fichier $@ manquant."
 	@false
 
-build/phplint.json: vendor/autoload.php /build/.composer/vendor/bin/parallel-lint phplint.lst
+# Files from phplint.lst, or the whole project if it has a composer.json.
+# ecs.php and rector.php configure tools that may run on a newer PHP than the linted code.
+build/phplint.json: /build/.composer/vendor/bin/parallel-lint
 	@test -d build || mkdir -p build
 	@echo "Looking for PHP syntax errors ..."
-	@parallel-lint --gitlab $$(cat phplint.lst) > $@
+	@if [ -f phplint.lst ]; then \
+		set -- --exclude ecs.php --exclude rector.php $$(cat phplint.lst); \
+	elif [ -f composer.json ]; then \
+		set -- --exclude .git --exclude vendor --exclude lang --exclude node_modules --exclude build --exclude .composer-cache --exclude ecs.php --exclude rector.php .; \
+	else \
+		echo "No phplint.lst nor composer.json: nothing to lint."; \
+		echo "[]" > $@; \
+		exit 0; \
+	fi; \
+	parallel-lint --gitlab "$$@" > $@ || { rc=$$?; parallel-lint "$$@"; exit $$rc; }
 	@echo $$(jq '.|length' $@)" error(s)."
 
-build/phpstan.json: vendor/autoload.php /build/.composer/vendor/bin/phpstan phpstan.neon.dist
+build/phpstan.json: vendor/bin/phpstan phpstan.neon.dist
 	@test -d build || mkdir -p build
 	@echo "Looking for bugs with phpstan ..."
-	@phpstan --memory-limit=1G --no-progress --error-format=gitlab > $@
+	@vendor/bin/phpstan analyse --memory-limit=1G --no-progress --error-format=gitlab > $@ || { \
+		rc=$$?; \
+		vendor/bin/phpstan analyse --memory-limit=1G --no-progress --error-format=table; \
+		exit $$rc; \
+	}
 
-build/ecs.json: vendor/autoload.php /build/.composer/vendor/bin/ecs ecs.php
+build/php-cs-fixer.json: vendor/bin/php-cs-fixer .php-cs-fixer.dist.php
 	@test -d build || mkdir -p build
 	@echo "Checking coding standards ..."
-	@ecs check --no-progress-bar --output-format=gitlab > $@
+	@vendor/bin/php-cs-fixer check --show-progress=none --format=gitlab > $@
 
-build/php-cs-fixer.json: vendor/autoload.php /build/.composer/vendor/bin/php-cs-fixer .php-cs-fixer.dist.php
+build/junit.xml: vendor/bin/phpunit phpunit.xml.dist
 	@test -d build || mkdir -p build
-	@echo "Checking coding standards ..."
-	@php-cs-fixer check --show-progress=none --format=gitlab > $@
+	@vendor/bin/phpunit --colors --no-coverage --log-junit $@
 
-build/rector.json: vendor/autoload.php /build/.composer/vendor/bin/rector rector.php
+build/cobertura.xml: vendor/bin/phpunit phpunit.xml.dist
+	@php -m | grep -qi '^pcov$$' || { echo "pcov is not available on this version of spip/tools."; false; }
 	@test -d build || mkdir -p build
-	@rector process --no-progress-bar --dry-run --output-format=gitlab > $@
-
-build/test: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
-	@test -d build || mkdir -p build
-	@phpunit --colors --no-coverage
-
-.phpunit.cache/corbertura/report.xml: vendor/autoload.php /build/.composer/vendor/bin/phpunit phpunit.xml.dist
-	@XDEBUG_MODE=coverage phpunit --colors
+	@php -d pcov.enabled=1 vendor/bin/phpunit --colors --coverage-text --coverage-cobertura $@
 
 build/gl-outdated.json: vendor/autoload.php
 	@test -d build || mkdir -p build
@@ -112,26 +101,36 @@ build/gl-audit.json: vendor/autoload.php
 		false; \
 	fi
 	@test -d build || mkdir -p build
-	@composer audit --locked --no-dev --format=json > $@.tmp || true
-	@cat $@.tmp | jq -f /usr/local/lib/jq/gitlab/audit.jq > $@
-	@rm $@.tmp
+	@if [ "$$(jq '.packages | length' composer.lock)" -eq 0 ]; then \
+		echo "No runtime dependency to audit."; \
+		echo "[]" > $@; \
+		exit 0; \
+	fi; \
+	composer audit --locked --no-dev --format=json > $@.tmp; rc=$$?; \
+	jq -f /usr/local/lib/jq/gitlab/audit.jq $@.tmp > $@; \
+	rm -f $@.tmp; \
+	if [ $$rc -ne 0 ]; then composer audit --locked --no-dev; fi; \
+	exit $$rc
 
 ## Test tools
 lint: build/phplint.json ## Find syntax errors
 
-cs: build/ecs.json ## Check coding standards (with ecs)
+cs: vendor/bin/ecs ecs.php ## Check coding standards (with ecs)
+	@echo "Checking coding standards ..."
+	@vendor/bin/ecs check --no-progress-bar
 
 cs-fixer: build/php-cs-fixer.json ## Check coding standards (with php-cs-fixer)
 
 analyze: build/phpstan.json ## Find bugs with phpstan
 
-refactor: build/rector.json ## Find bugs with rector
+refactor: vendor/bin/rector rector.php ## Find bugs with rector
+	@vendor/bin/rector process --no-progress-bar --dry-run
 
-test-coverage: .phpunit.cache/corbertura/report.xml ## Run Unit Tests with coverage
+test-coverage: build/cobertura.xml ## Run Unit Tests with coverage (pcov)
 
-test: build/test ## Run Unit Tests without coverage
+test: build/junit.xml ## Run Unit Tests without coverage
 
 ## External vulnerabilities
 outdated: build/gl-outdated.json  ## Outdated packages
 
-audit: build/gl-audit.json ## Vulnerabilities
+audit: build/gl-audit.json ## Vulnerabilities (fails if any)
