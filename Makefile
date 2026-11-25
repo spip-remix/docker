@@ -1,4 +1,6 @@
 .PHONY: help clean lint audit outdated analyze refactor cs cs-fixer test test-coverage
+# Reports are always regenerated: a report written by a failed run must not make the next run a no-op.
+.PHONY: build/phplint.json build/phpstan.json build/php-cs-fixer.json build/junit.xml build/cobertura.xml build/gl-outdated.json build/gl-audit.json
 
 ## —— 🐿️  The SpipRemix Makefile 🐿️  ——
 help: ## Outputs this help screen
