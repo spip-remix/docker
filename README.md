@@ -97,7 +97,9 @@ docker run \
 
 ### Notes
 
-Since PHP8.6, opcache is always present, pear is no more present
+Since PHP8.6, opcache is always present, pear is no more present.
+
+The official `php:8.6-cli-alpine` image is built with ZTS (`PHP_ZTS=1`), unlike PHP 8.5 and earlier (NTS).
 
 ### Zip
 
