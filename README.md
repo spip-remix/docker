@@ -119,6 +119,8 @@ docker run \
 
 Since PHP8.6, opcache is always present, pear is no more present.
 
+The official PHP 8.6 images no longer compile `mbstring` (it was enabled through pear before): it is added with the other extensions of `versions.json` (`exts`), in all images (tools, apache, fpm).
+
 The official `php:8.6-cli-alpine` image is built with ZTS (`PHP_ZTS=1`), unlike PHP 8.5 and earlier (NTS).
 
 PECL extensions of the tools image (`pcov`) are installed with [PIE](https://github.com/php/pie) (PHP 8.1+),

@@ -156,6 +156,7 @@
     "exts": [
       "gd",
       "intl",
+      "mbstring",
       "zip",
       "mysqli",
       "pgsql",
