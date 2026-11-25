@@ -17,9 +17,11 @@
     "make": "4.3",
     "jq": "1.6",
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl",
+      "pcov"
     ]
   },
   {
@@ -29,23 +31,25 @@
     "make": "4.3",
     "jq": "1.6",
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.52",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "phpstan/phpstan=^1.12",
-      "phpunit/phpunit=^9.6",
-      "rector/rector=^1.2",
-      "symplify/easy-coding-standard=^12.5"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl",
+      "pcov"
     ]
   },
   {
     "version": "8.1",
     "php": "8.1.34",
     "xdebug": "3.4.7",
-    "jq": "1.7",
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
+    ],
+    "cli_pie": [
+      "pecl/pcov"
     ]
   },
   {
@@ -63,9 +67,13 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
+    ],
+    "cli_pie": [
+      "pecl/pcov"
     ]
   },
   {
@@ -83,9 +91,13 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
+    ],
+    "cli_pie": [
+      "pecl/pcov"
     ]
   },
   {
@@ -103,9 +115,13 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
+    ],
+    "cli_pie": [
+      "pecl/pcov"
     ]
   },
   {
@@ -124,9 +140,13 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
+    ],
+    "cli_pie": [
+      "pecl/pcov"
     ]
   },
   {
@@ -143,9 +163,10 @@
       "pdo_pgsql"
     ],
     "tools": [
-      "friendsofphp/php-cs-fixer=^3.95",
-      "php-parallel-lint/php-parallel-lint=^1.4",
-      "spip-league/qa-tools=^1.0"
+      "php-parallel-lint/php-parallel-lint=^1.4"
+    ],
+    "cli_exts": [
+      "pcntl"
     ]
   }
 ]

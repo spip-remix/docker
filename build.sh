@@ -18,7 +18,8 @@ OPTION="${1}"
 if [ "${OPTION}" != "" ]; then
     echo "${OPTION}"
     FORCE=1
-    TO_BUILD="8.2 8.3 8.4 8.5 8.6"
+    # 7.4, 8.0 and 8.1 get no new PHP patch: they are only rebuilt when forced
+    TO_BUILD="7.4 8.0 8.1 8.2 8.3 8.4 8.5 8.6"
 fi
 
 ENTRYPOINT=
@@ -26,15 +27,20 @@ VERSION_COMMAND="php --version"
 DOCKERFILE=
 PACKAGES=
 TOOLS=
+# xdebug is only provided in the web images (apache, fpm)
+XDEBUG='" --build-arg XDEBUG="+.xdebug+'
 SPIP_ROLE="${ROLE}"
 
 if [ "$ROLE" == "cli" ]; then
     SPIP_ROLE=tools
     ENTRYPOINT="--entrypoint docker-php-entrypoint"
     VERSION_COMMAND="--version"
+    XDEBUG=
     PACKAGES='(if .composer then " --build-arg COMPOSER="+.composer else "" end)+
     (if .make then " --build-arg MAKE="+.make else "" end)+
-    (if .jq then " --build-arg JQ="+.jq else "" end)+'
+    (if .jq then " --build-arg JQ="+.jq else "" end)+
+    (if .cli_exts then " --build-arg EXTRA_EXTS=\""+(.cli_exts|join(" "))+"\"" else "" end)+
+    (if .cli_pie then " --build-arg PIE_EXTS=\""+(.cli_pie|join(" "))+"\"" else "" end)+'
     TOOLS='" --build-arg TOOLS=\""+(.tools|join(" "))+"\""+'
 fi
 
@@ -87,7 +93,7 @@ jq -r '.[]|'"${TO_BUILD}"'|
     " -t spip/'${SPIP_ROLE}':"+.php+
     (if .latest then " -t spip/'${SPIP_ROLE}'" else "" end)+
     " --build-arg PHP="+.php+
-    " --build-arg XDEBUG="+.xdebug+
+    '"${XDEBUG}"'
     '"${PACKAGES}"'
     (if .exts then " --build-arg EXTS=\""+(.exts|join(" "))+"\"" else "" end)+
     '"${TOOLS}"'
