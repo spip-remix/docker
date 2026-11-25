@@ -1,5 +1,5 @@
 ARG PHP=8.5.13
-ARG COMPOSER=2.10.3
+ARG COMPOSER=2.11.3
 FROM composer/composer:${COMPOSER}-bin AS composer
 FROM mlocati/php-extension-installer:2 AS ext-installer
 # pie for php8.1+
