@@ -8,6 +8,12 @@
 ./build.sh fpm
 ```
 
+## Docker Hub overviews
+
+The overview pages of [spip/tools](https://hub.docker.com/r/spip/tools), [spip/fpm](https://hub.docker.com/r/spip/fpm)
+and [spip/apache](https://hub.docker.com/r/spip/apache) are kept in [`docs/hub/`](./docs/hub/).
+After a change in `versions.json`, regenerate their "Supported tags" tables with `docs/hub/tags.sh`.
+
 ## Usage
 
 See [Versions](https://hub.docker.com/r/spip/tools/tags)
